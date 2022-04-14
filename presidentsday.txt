@@ -1,0 +1,35 @@
+Presidents Day:
+George, William, John, Abe, and Millard have their birthdays on consecutive days, all between Monday and Friday.
+George’s birthday is as many days before Millard’s and William’s is after Abe’s.
+John is two days older than Abe.
+Millard’s birthday is on Thursday.
+Can you figure out whose birthday is on each day?
+
+Miilard - Thursday
+
+George is older than Millard
+William is younger than Abe
+John is older than Abe
+
+Two groups on the time line:
+1. George before Millard
+2. John before Abe before William
+
+As soon as John is two days older than Abe and Thursday is occupied, then Abe can occupy either Wendsday or Friday.
+But William is younger than Abe, so the only day for Abe is Wendsday.
+
+Abe - Wendsday
+John - Monday
+Millard - Thursday
+
+If William's day (Friday) is on the second day after Abe, then George's day is on the second day (Tuesday) before Millard's.
+William - Friday
+George - Tuesday
+
+Final result:
+
+John    - Monday
+George  - Tuesday
+Abe     - Wendsday
+Millard - Thursday
+William - Friday
