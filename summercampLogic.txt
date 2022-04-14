@@ -1,0 +1,20 @@
+Puzzle #1
+
+Task:
+
+Summer Camp
+Abigail, Oliver, Rosa, and Blake all attend the same summer camp, where they can cook, kayak, rock climb, and zip-line. Each child has a different favorite activity.
+Abigail’s favorite activity isn’t rock climbing.
+Oliver is afraid of heights.
+Rosa can’t do her favorite activity without a harness.
+Blake likes to keep his feet on the ground at all times.
+Can you figure out who likes what?
+
+
+Solution:
+
+Rosa    - rock climb as she needs a harness
+Blake   - cook as he needs to feel ground
+Oliver  - kayak as he is afraid of heights
+Abigail - zip line as nothing else left
+
