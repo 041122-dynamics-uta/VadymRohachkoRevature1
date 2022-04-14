@@ -1,0 +1,29 @@
+Puzzle #5
+
+Name:
+Dads and Grads
+
+Task:
+A joint Father’s Day and graduation party is being thrown for Michael, Ken, James, Alberto, Elias, and Stephanie. Three of them are newly minted high school graduates. The other three are their dads.
+Stephanie went to the senior prom with Michael’s son.
+Elias and James played on the school’s baseball team. One of them is Alberto’s son.
+Michael and Elias are not related.
+
+Question:
+Can you match the high school graduates to their fathers at this joint celebration?
+
+Solution:
+Elias is not Michael's, Stephany with Michael's son , so it is James.
+James/Michael
+
+Elias or James is Albertor's, but James is Michaels then Elias is Alberto's
+Elias/Alberto
+
+Only Stephany and Ken are left, so 
+Stefany/Ken
+
+James/Michael
+Elias/Alberto
+Stefany/Ken
+
+
