@@ -1,2 +1,2 @@
 # VadymRohachkoRevature1
-Logic puzzles
+Logic puzzles (set of four).
