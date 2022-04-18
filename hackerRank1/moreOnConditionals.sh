@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash 
 
 read firstUserInput
 read secondUserInput
