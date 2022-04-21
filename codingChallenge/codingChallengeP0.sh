@@ -1,5 +1,33 @@
 #!/bin/bash
 
+#
+#------functions--------
+# greetUser()
+# displayMenu()
+# getFirstInput()
+# getSecondInput()
+# checkInput() /not implemented
+# exacCalculation() to do all the calculations in one place
+# add()
+# minus()
+# multiply()
+# divide()
+# chooseContinueOrQuit() to go to the net round or quit the app
+# clearGlobalVars() to clear global vars before next use
+# clearScreen()
+# quitApp()
+# startNewGame() a container to reuse all the functions but greetUser()
+#-------global vars------
+# result
+# firstInput
+# secondInput
+# mathOperation
+# userChoice
+#
+
+#constants
+mathOperations=('+' '-' "x" '/')
+#globals
 typeOfMathOperation=0
 firstInteger=0
 secondInteger=0
@@ -22,16 +50,17 @@ clearGlobalVars() {
 }
 
 greetUser() {
-	echo "Hello!"
+	echo -e "\nHello!\n"
 }
 
 displayMathChoice() {
-	echo -e "Please, choose an option:"
+	echo "Please, choose an option:"
 	echo "Add      - 1"
 	echo "Subtract - 2"
 	echo "Multiply - 3"
 	echo "Divide   - 4"
 	echo "Exit     - any key"
+	echo ""
 }
 
 readChoiceMathOperation() {
@@ -40,10 +69,10 @@ readChoiceMathOperation() {
 
 displayUserCoice() {
 	case $typeOfMathOperation in
-	1) echo -e "You chose Add" ;;
-	2) echo -e "You chose Subtract" ;;
-	3) echo -e "You chose Multiply" ;;
-	4) echo -e "You chose Divide" ;;
+	1) echo "You chose Add" ;;
+	2) echo "You chose Subtract" ;;
+	3) echo "You chose Multiply" ;;
+	4) echo "You chose Divide" ;;
 	*)
 		clearScreen
 		exitScript
@@ -52,26 +81,26 @@ displayUserCoice() {
 }
 
 getFirstInt() {
-	echo -e "Enter the first integer"
+	echo "Enter the first integer"
 	read firstInteger
 
 	while ! [[ $firstInteger =~ ^[-]?[0-9]+$ ]]; do
-		echo -e "\nWrong input. Only integers allowed. Try again..."
+		echo "Wrong input. Only integers allowed. Try again..."
 		read firstInteger
 	done
 }
 
 getSecondInt() {
-	echo -e "Enter the second integer"
+	echo "Enter the second integer"
 	read secondInteger
 
 	while ! [[ $secondInteger =~ ^[-]?[0-9]+$ ]]; do
-		echo -e "\nWrong input.  Only integers allowed. Try again..."
+		echo "Wrong input.  Only integers allowed. Try again..."
 		read secondInteger
 	done
 
 	if [[ $typeOfMathOperation == 4 && $secondInteger == 0 ]]; then
-		echo -e "\nWrong input: the divider can not be 0."
+		echo "Wrong input: the divider can not be 0."
 		getSecondInt
 	fi
 }
@@ -86,7 +115,7 @@ exacMathOperation() {
 }
 
 displayMathResult() {
-	echo "Result of math operation is $result"
+	echo "Result: $1 $2 $3 = $4"
 }
 
 readContinueOrQuit() {
@@ -113,7 +142,10 @@ substractTwoInt() {
 }
 
 divideTwoInt() {
-	result=$(awk "BEGIN {printf \"%.3f\",${firstInteger}/${secondInteger}}")
+	result=$(awk "BEGIN {printf \"%.1f\",${firstInteger}/${secondInteger}}")
+	if [[ $result == "1.0" ]]; then
+		result=$(echo "$result" | sed 's/\.0$//')
+	fi
 }
 
 multiplyTwoInt() {
@@ -128,7 +160,7 @@ startNewGame() {
 	getFirstInt
 	getSecondInt
 	exacMathOperation
-	displayMathResult
+	displayMathResult $firstInteger ${mathOperations[$typeOfMathOperation - 1]} $secondInteger $result
 	readContinueOrQuit
 	exacContinueOrQuit
 }
