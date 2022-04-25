@@ -64,7 +64,9 @@ clearGlobalVars() {
 }
 
 greetUser() {
-	echo -e "\nHello!\n"
+	echo -e "\nHello! May I know your name?"
+	read userName
+	echo -e "\nWelcome to Simple calculator, $userName!\n"
 }
 
 displayMathChoice() {
