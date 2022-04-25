@@ -27,6 +27,7 @@ clearGlobalVars() {
 greetUser() {
 	echo -e "\nHello! May I know your name?"
 	read userName
+	clear
 	echo -e "\nWelcome to Simple calculator, $userName!\n"
 }
 
