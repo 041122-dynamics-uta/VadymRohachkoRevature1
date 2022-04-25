@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#
+# -
 # 1.  greet user
 # 2.  clear screen and display menu
 # 3.  get user's choice
@@ -40,7 +40,7 @@
 #-------------------------------
 
 #constants
-mathOperations=('+' '-' "x" '/')
+mathOperations=('+' '-' 'x' '/')
 #globals
 typeOfMathOperation=0
 firstInteger=0
@@ -158,6 +158,10 @@ substractTwoInt() {
 divideTwoInt() {
 	result=$(awk "BEGIN {printf \"%.1f\",${firstInteger}/${secondInteger}}")
 	if [[ $result == "1.0" ]]; then
+		# sed 's/\.0$//     sed replaces 0 decimals with space
+		# to display only number without zeroes
+		# get value from $result and pipes it to sed expression and 
+	        # then returns it to result again
 		result=$(echo "$result" | sed 's/\.0$//')
 	fi
 }
