@@ -1,44 +1,5 @@
 #!/bin/bash
 
-# -
-# 1.  greet user
-# 2.  clear screen and display menu
-# 3.  get user's choice
-# 4.  check the input (only integers from 1 to 4 are allowed to proceed or any key to quit the app)
-# 5.  invite user to enter first integer
-# 6.  check the input (only integers are allowed)
-# 7.  if not an integer was entered, show a hint and wait for another input until the correct one
-# 8.  repeat steps 5-8 for the second integer
-# 9.  perform calculations
-#     if divide(), then display decimals if neaded
-# 10. display the result
-# 11. invite user for another round or quit
-# 12. repeat steps 2 or quit
-#
-#------create empty functions--------
-# greetUser()
-# displayMenu()
-# getFirstInput()
-# getSecondInput()
-# checkInput() /not implemented
-# exacCalculation() to do all the calculations in one place
-# add()
-# minus()
-# multiply()
-# divide()
-# chooseContinueOrQuit() to go to the net round or quit the app
-# clearGlobalVars() to clear global vars before next use
-# clearScreen()
-# quitApp()
-# startNewGame() a container to reuse all the functions but greetUser()
-#------- create global vars------
-# result
-# firstInput
-# secondInput
-# mathOperation
-# userChoice
-#-------------------------------
-
 #constants
 mathOperations=('+' '-' 'x' '/')
 #globals
