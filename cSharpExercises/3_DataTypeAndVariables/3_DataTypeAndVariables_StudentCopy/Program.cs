@@ -6,12 +6,33 @@ namespace _3_DataTypeAndVariablesChallenge
     {
         public static void Main(string[] args)
         {
-            //
-            //
-            // Insert code here.
-            //
-            //
-        }
+			byte myByte = 0;
+			sbyte mySbyte = -128;
+			int myInt = -2147483648;
+			uint myUint = 0;
+			short myShort = -32768;
+			ushort myUshort = 0;
+			long myLong = -9223372036854775808;
+			ulong myUlong = 18446744073709551615;
+			float myFloat = default(float);
+			double myDouble = default(double);
+			char myChar = ' ';
+			bool myBool = true;
+			object myObject = new Object();
+			string myString = "";
+			decimal myDecimal = default(decimal);
+
+			object[] types = { myByte, mySbyte, myInt, myUint, myShort, myUshort, myLong, myUlong, myFloat, myDouble, myChar, myBool, myString, myDecimal, myObject };
+			foreach (var item in types)
+			{
+				Console.WriteLine(PrintValues(item));
+			}
+
+			Console.WriteLine(StringToInt("12d34"));
+			Console.WriteLine(StringToInt("1234"));
+
+
+		}
 
         /// <summary>
         /// This method has an 'object' type parameter. 
@@ -25,8 +46,63 @@ namespace _3_DataTypeAndVariablesChallenge
         /// <returns></returns>
         public static string PrintValues(object obj)
         {
-            throw new NotImplementedException($"PrintValues() has not been implemented");
-        }
+			String output = "Data type =>";
+			String prossesedInput = obj.GetType().ToString().Remove(0, 7);
+
+			switch (prossesedInput)
+			{
+				case "Byte":
+					output = $"{output} byte";
+					break;
+				case "SByte":
+					output = $"{output} sbyte";
+					break;
+				case "Int32":
+					output = $"{output} int";
+					break;
+				case "UInt32":
+					output = $"{output} uint";
+					break;
+				case "Int16":
+					output = $"{output} short";
+					break;
+				case "UInt16":
+					output = $"{output} ushort";
+					break;
+				case "Int64":
+					output = $"{output} long";
+					break;
+				case "UInt64":
+					output = $"{output} ulong";
+					break;
+				case "Single":
+					output = $"{output} float";
+					break;
+				case "Double":
+					output = $"{output} double";
+					break;
+				case "Char":
+					output = $"{output} char";
+					break;
+				case "Boolean":
+					output = $"{output} bool";
+					break;
+				case "Object":
+					output = $"{output} object";
+					break;
+				case "String":
+					output = $"{output} string";
+					break;
+				case "Decimal":
+					output = $"{output} decimal";
+					break;
+				default:
+					output = "Unknown type";
+					break;
+			}
+			return output;
+			// throw new NotImplementedException($"PrintValues() has not been implemented");
+		}
 
         /// <summary>
         /// THis method has a string parameter.
@@ -39,8 +115,9 @@ namespace _3_DataTypeAndVariablesChallenge
         /// <returns></returns>
         public static int? StringToInt(string numString)
         {
-            throw new NotImplementedException($"StringToInt() has not been implemented");
-
-        }
+			int result;
+			int? output = int.TryParse(numString, out result) == true ? result : null;
+			return output;
+		}
     }// end of class
 }// End of Namespace
