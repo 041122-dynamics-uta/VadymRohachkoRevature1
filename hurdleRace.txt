@@ -1,7 +1,0 @@
-public static int hurdleRace(int k, List<int> height)
-{
-int max = height.Max();
-
-return( (k >= max) ? 0 : (max - k) );
-
-}
