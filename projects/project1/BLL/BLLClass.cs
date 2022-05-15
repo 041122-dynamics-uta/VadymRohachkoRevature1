@@ -32,4 +32,10 @@ public class BLLClass
 		return dalObj.Register(customer);
 	}
 
+	public List<LogModelClass> ProcessLogRequest(int id, DALClass dalObj)
+	{
+
+
+	}
+
 }

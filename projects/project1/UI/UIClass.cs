@@ -12,6 +12,11 @@ public class UIClass
 		Console.WriteLine("Welcome to the greatest online store in the world!\n");
 	}
 
+	public void GreetCustomer(string lastFirstName)
+	{
+		Console.WriteLine($"Welcome back {lastFirstName}!");
+	}
+
 	public void goodBuyUser(string custName)
 	{
 		Console.WriteLine($"Good buy {custName}!");
@@ -196,27 +201,32 @@ public class UIClass
 
 	public string displayOnlineStoreMenu()
 	{
-		bool flag = false;
 		string userInput = "";
-		do
-		{
-			Console.WriteLine("Menu:\n1 - Cart\n2 - Log\n3 - Stores\n4 - Orders\n5 - Products\n6 - Categories\nq - Leave the store");
-			userInput = Console.ReadLine();
-			switch (userInput)
-			{
-				case "1":
-				case "2":
-				case "3":
-				case "4":
-				case "5":
-				case "6":
-				case "q":
-					flag = true;
-					break;
-			}
-		} while (!flag);
 
+		Console.WriteLine("Menu:\n1 - Cart\n2 - Log\n3 - Stores\n4 - Orders\n5 - Products\n6 - Categories\nq - Leave the store\n");
+		userInput = Console.ReadLine();
+
+		switch (userInput)
+		{
+			case "\n1":
+			case "2":
+			case "3":
+			case "4":
+			case "5":
+			case "6":
+			case "q":
+				return userInput;
+			default:
+				ClearConsole();
+				displayOnlineStoreMenu();
+				break;
+		}
 		return userInput;
+	}
+
+	public void getLog(int id)
+	{
+		Console.WriteLine("get log");
 	}
 
 }
