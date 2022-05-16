@@ -8,19 +8,40 @@ public class DALClass
 	public CustomerMapperClass _mapper { get; set; }
 	public LogMapperClass _log { get; set; }
 	public StoreLocationMapperClass _location { get; set; }
+	public CategoryMapperClass _category { get; set; }
 
-	string connectionString = $"Server = tcp:vadymrohachkoserver.database.windows.net,1433; Initial Catalog = OnlineStore1; Persist Security Info = False; User ID = VadymRohachkoDB; Password =(1Inspiron1300); MultipleActiveResultSets = False; Encrypt = True; TrustServerCertificate = False; Connection Timeout = 30;";
+	string connectionString = $"Server = tcp:vadymrohachkoserver.database.windows.net,1433; Initial Catalog = OnlineStore1; Persist Security Info = False; User ID = VadymRohachkoDB; Password = 123; MultipleActiveResultSets = False; Encrypt = True; TrustServerCertificate = False; Connection Timeout = 30;";
 
 	public DALClass()
 	{
 		this._mapper = new CustomerMapperClass();
 		this._log = new LogMapperClass();
 		this._location = new StoreLocationMapperClass();
+		this._category = new CategoryMapperClass();
+	}
+
+	public List<CategoryModelClass> GetCategory()
+	{
+		List<CategoryModelClass> storeLocation = new List<CategoryModelClass>();
+		string myQuery1 = "SELECT * FROM Categories;";
+
+		using (SqlConnection query1 = new SqlConnection(connectionString))
+		{
+			SqlCommand command = new SqlCommand(myQuery1, query1);
+			command.Connection.Open();
+			SqlDataReader results = command.ExecuteReader();
+
+			while (results.Read())
+			{
+				storeLocation.Add(this._location.DboToStoreLocation(results));
+			}
+			query1.Close();
+			return storeLocation;
+		}
 	}
 
 	public List<StoreLocationModelClass> GetStoreLocation()
 	{
-		const int actionId = 7;
 		List<StoreLocationModelClass> storeLocation = new List<StoreLocationModelClass>();
 		string myQuery1 = "SELECT * FROM Stores;";
 
@@ -37,7 +58,6 @@ public class DALClass
 			query1.Close();
 			return storeLocation;
 		}
-
 	}
 
 	public List<LogModelClass> GetLog(int id)

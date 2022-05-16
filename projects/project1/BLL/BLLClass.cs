@@ -43,4 +43,9 @@ public class BLLClass
 		return dalObj.GetStoreLocation();
 	}
 
+	public List<CategoryModelClass> ProcessCategoryRequest(DALClass dalObj)
+	{
+		return dalObj.GetCategory();
+	}
+
 }
