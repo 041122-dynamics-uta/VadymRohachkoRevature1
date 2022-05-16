@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
+using Models;
 
 namespace UI;
 public class UIClass
@@ -224,9 +225,54 @@ public class UIClass
 		return userInput;
 	}
 
-	public void getLog(int id)
+	public void displayLog(List<LogModelClass> listOfLogs)
 	{
-		Console.WriteLine("get log");
+		if (listOfLogs.Count == 0)
+		{
+			Console.WriteLine("No logs for this customer");
+		}
+		else
+		{
+			//Console.WriteLine(listOfLogs.Count);
+			foreach (var item in listOfLogs)
+			{
+				Console.WriteLine(item.DateTime + " " + item.ActionName);
+			}
+			Console.WriteLine();
+		}
+
+	}
+
+	public void displayStoreLocation(List<StoreLocationModelClass> listOfLocations)
+	{
+		if (listOfLocations.Count == 0)
+		{
+			Console.WriteLine("No locations in our store :(");
+		}
+		else
+		{
+			foreach (var item in listOfLocations)
+			{
+				Console.WriteLine($"#{item.StoreId} located in:  {item.Location}");
+			}
+			Console.WriteLine();
+		}
+	}
+
+	public void displayCategory(List<CategoryModelClass> listOfCategory)
+	{
+		if (listOfCategory.Count == 0)
+		{
+			Console.WriteLine("No categoriess in our store :(");
+		}
+		else
+		{
+			foreach (var item in listOfCategory)
+			{
+				//Console.WriteLine($"#{item.categoryId} located in:  {item.Location}");
+			}
+			Console.WriteLine();
+		}
 	}
 
 }

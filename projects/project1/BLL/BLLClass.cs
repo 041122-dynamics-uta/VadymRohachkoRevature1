@@ -7,10 +7,10 @@ namespace BLL;
 public class BLLClass
 {
 
-	public void ProcessLogin(CustomerModelClass customer)
-	{
+	// public void ProcessLogin(CustomerModelClass customer)
+	// {
 
-	}
+	// }
 
 	public List<CustomerModelClass> ProcessLogin(Dictionary<string, string> user, DALClass dalObj)
 	{
@@ -34,8 +34,13 @@ public class BLLClass
 
 	public List<LogModelClass> ProcessLogRequest(int id, DALClass dalObj)
 	{
+		//LogModelClass log = new LogModelClass();
+		return dalObj.GetLog(id);
+	}
 
-
+	public List<StoreLocationModelClass> ProcessStoreLocationRequest(DALClass dalObj)
+	{
+		return dalObj.GetStoreLocation();
 	}
 
 }

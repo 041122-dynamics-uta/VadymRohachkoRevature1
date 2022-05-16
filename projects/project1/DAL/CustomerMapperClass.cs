@@ -16,5 +16,4 @@ namespace DAL
 			return cust;
 		}
 	}
-
 }
