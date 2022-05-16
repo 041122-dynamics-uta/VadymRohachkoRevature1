@@ -22,7 +22,7 @@ public class DALClass
 
 	public List<CategoryModelClass> GetCategory()
 	{
-		List<CategoryModelClass> storeLocation = new List<CategoryModelClass>();
+		List<CategoryModelClass> categories = new List<CategoryModelClass>();
 		string myQuery1 = "SELECT * FROM Categories;";
 
 		using (SqlConnection query1 = new SqlConnection(connectionString))
@@ -33,10 +33,10 @@ public class DALClass
 
 			while (results.Read())
 			{
-				storeLocation.Add(this._location.DboToStoreLocation(results));
+				categories.Add(this._category.DboToCategory(results));
 			}
 			query1.Close();
-			return storeLocation;
+			return categories;
 		}
 	}
 

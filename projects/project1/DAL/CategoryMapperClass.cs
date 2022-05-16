@@ -1,3 +1,6 @@
+using Models;
+using System.Data.SqlClient;
+
 namespace DAL
 {
 	public class CategoryMapperClass
