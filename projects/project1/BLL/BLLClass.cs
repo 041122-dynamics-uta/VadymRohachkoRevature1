@@ -52,4 +52,9 @@ public class BLLClass
 		return dalObj.GetOrder(id);
 	}
 
+	public List<CartModelClass> ProcessCartRequest(int id, DALClass dalObj)
+	{
+		return dalObj.GetCart(id);
+	}
+
 }

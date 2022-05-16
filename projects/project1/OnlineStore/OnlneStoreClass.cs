@@ -90,7 +90,15 @@ do
 
 	switch (menuChoice)
 	{
-		//case "\n1":			
+		case "1":
+			UIManager.displayCart(BLLManager.ProcessCartRequest(currCust.customerId, DALManager));
+			string cartLeaveInput = "";
+			do
+			{
+				Console.WriteLine("Press q to return to previous menu.\n");
+				cartLeaveInput = Console.ReadLine();
+			} while (cartLeaveInput != "q");
+			break;
 		case "2":
 			UIManager.displayLog(BLLManager.ProcessLogRequest(currCust.customerId, DALManager));
 			string logLeaveInput = "";
