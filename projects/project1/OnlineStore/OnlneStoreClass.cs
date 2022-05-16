@@ -109,9 +109,16 @@ do
 				storeLocationInput = Console.ReadLine();
 			} while (storeLocationInput != "q");
 			break;
-		// case "4":
-		// case "5":
-		case "6":
+		case "4":
+			UIManager.displayOrder(BLLManager.ProcessOrderRequest(currCust.customerId, DALManager));
+			string orderInput = "";
+			do
+			{
+				Console.WriteLine("Press q to return to previous menu.\n");
+				orderInput = Console.ReadLine();
+			} while (orderInput != "q");
+			break;
+		case "5":
 			UIManager.displayCategory(BLLManager.ProcessCategoryRequest(DALManager));
 			string categoryInput = "";
 			do

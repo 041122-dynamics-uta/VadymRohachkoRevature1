@@ -34,7 +34,6 @@ public class BLLClass
 
 	public List<LogModelClass> ProcessLogRequest(int id, DALClass dalObj)
 	{
-		//LogModelClass log = new LogModelClass();
 		return dalObj.GetLog(id);
 	}
 
@@ -46,6 +45,11 @@ public class BLLClass
 	public List<CategoryModelClass> ProcessCategoryRequest(DALClass dalObj)
 	{
 		return dalObj.GetCategory();
+	}
+
+	public List<OrderModelClass> ProcessOrderRequest(int id, DALClass dalObj)
+	{
+		return dalObj.GetOrder(id);
 	}
 
 }

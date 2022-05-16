@@ -214,7 +214,6 @@ public class UIClass
 			case "3":
 			case "4":
 			case "5":
-			case "6":
 			case "q":
 				return userInput;
 			default:
@@ -270,6 +269,22 @@ public class UIClass
 			foreach (var item in listOfCategory)
 			{
 				Console.WriteLine($"Category #{item.CategoryId}\nName: {item.Name}\nDescription: {item.Description}\n");
+			}
+			Console.WriteLine();
+		}
+	}
+
+	public void displayOrder(List<OrderModelClass> listOfOrder)
+	{
+		if (listOfOrder.Count == 0)
+		{
+			Console.WriteLine("No orders for this customer :(");
+		}
+		else
+		{
+			foreach (var item in listOfOrder)
+			{
+				Console.WriteLine($"Order #{item.OrderId}\n");
 			}
 			Console.WriteLine();
 		}
