@@ -9,6 +9,7 @@ public class DALClass
 	public LogMapperClass _log { get; set; }
 	public StoreLocationMapperClass _location { get; set; }
 	public CategoryMapperClass _category { get; set; }
+	public OrderMapperClass _order { get; set; }
 
 	string connectionString = $"Server = tcp:vadymrohachkoserver.database.windows.net,1433; Initial Catalog = OnlineStore1; Persist Security Info = False; User ID = VadymRohachkoDB; Password = 123; MultipleActiveResultSets = False; Encrypt = True; TrustServerCertificate = False; Connection Timeout = 30;";
 
@@ -18,6 +19,28 @@ public class DALClass
 		this._log = new LogMapperClass();
 		this._location = new StoreLocationMapperClass();
 		this._category = new CategoryMapperClass();
+		this._order = new OrderMapperClass();
+	}
+
+	public List<OrderModelClass> GetOrder(int customerId)
+	{
+		List<OrderModelClass> orders = new List<OrderModelClass>();
+		string myQuery1 = "SELECT * FROM Orders where customerId = @customerId;";
+
+		using (SqlConnection query1 = new SqlConnection(connectionString))
+		{
+			SqlCommand command = new SqlCommand(myQuery1, query1);
+			command.Parameters.AddWithValue("@customerId", customerId);
+			command.Connection.Open();
+			SqlDataReader results = command.ExecuteReader();
+
+			while (results.Read())
+			{
+				orders.Add(this._order.DboToOrder(results));
+			}
+			query1.Close();
+			return orders;
+		}
 	}
 
 	public List<CategoryModelClass> GetCategory()
