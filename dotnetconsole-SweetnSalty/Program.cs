@@ -75,5 +75,5 @@ foreach (var item in ints)
 	}
 }
 
-//display quantity of Sweet, Salt and SweetAndSalty.
+//display quantity of Sweet, Salt and SweetAndSalty
 Console.WriteLine($"There are {module3} Sweet\nThere are {module5} Salty.\nThere are {module35} SweetAndSalty.");
