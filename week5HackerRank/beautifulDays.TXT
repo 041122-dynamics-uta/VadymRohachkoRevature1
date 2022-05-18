@@ -1,0 +1,26 @@
+
+	public int beautifulDays(int i, int j, int k)
+	{
+		//string str = "123";
+		//Console.WriteLine(str.Reverse());
+		var days = Enumerable.Range(20, 4).ToArray();
+		int[] reversedDays = new int[days.Length];
+		//Array.Reverse(days);
+		List<string> daysList = new List<string>();
+		var str = "sdf".Split(",");
+		days.ToList().ForEach(x => daysList.Add(x.ToString()));
+		daysList.ForEach(x => Console.WriteLine(x.Split(",")));
+		foreach (var item in daysList)
+		{
+			Console.WriteLine(item.Split(","));
+		}
+		List<string> daysList2 = new List<string>();
+		//daysList.ForEach(x => daysList2.Add(x.Split(",")));
+
+		//Console.WriteLine(daysList.Count);
+
+		//listOfDays.ForEach(x => Console.WriteLine(Convert.ToString(x)));
+		//listOfDays.ForEach(x => Convert.ToInt32(x.ToString().Reverse()) );
+
+		return 0;
+	}
