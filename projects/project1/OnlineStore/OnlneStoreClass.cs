@@ -73,12 +73,6 @@ do
 
 
 //Menu: 
-//Cart
-//list of Logs
-//list of Stores
-//list of Orders (History)
-//list of products
-//list of categories
 bool quit = false;
 
 UIManager.ClearConsole();
@@ -99,7 +93,7 @@ do
 				cartLeaveInput = Console.ReadLine();
 			} while (cartLeaveInput != "q");
 			break;
-		case "2":
+		case "5":
 			UIManager.displayLog(BLLManager.ProcessLogRequest(currCust.customerId, DALManager));
 			string logLeaveInput = "";
 			do
@@ -111,11 +105,31 @@ do
 		case "3":
 			UIManager.displayStoreLocation(BLLManager.ProcessStoreLocationRequest(DALManager));
 			string storeLocationInput = "";
+			bool isToReturnToMainMenu = false;
 			do
 			{
-				Console.WriteLine("Press q to return to previous menu.\n");
+				Console.WriteLine("Press q to return to previous menu.");
+				Console.WriteLine("Choose a store to see the list of products.\n");
 				storeLocationInput = Console.ReadLine();
-			} while (storeLocationInput != "q");
+
+				switch (storeLocationInput)
+				{
+					case "q":
+						isToReturnToMainMenu = true;
+						break;
+					case "1":
+					case "2":
+					case "3":
+						//Console.WriteLine("Not Available at the moment :(\nCome back later!\n");
+						isToReturnToMainMenu = true;
+						UIManager.displayProductByStore(BLLManager.ProcessProductByStoreRequest(Int32.Parse(storeLocationInput), DALManager));
+						break;
+					default:
+						Console.WriteLine("Wrong input!");
+						break;
+				}
+
+			} while (!isToReturnToMainMenu);//(storeLocationInput != "q");
 			break;
 		case "4":
 			UIManager.displayOrder(BLLManager.ProcessOrderRequest(currCust.customerId, DALManager));
@@ -126,7 +140,7 @@ do
 				orderInput = Console.ReadLine();
 			} while (orderInput != "q");
 			break;
-		case "5":
+		case "2":
 			UIManager.displayCategory(BLLManager.ProcessCategoryRequest(DALManager));
 			string categoryInput = "";
 			do
@@ -134,6 +148,10 @@ do
 				Console.WriteLine("Press q to return to previous menu.\n");
 				categoryInput = Console.ReadLine();
 			} while (categoryInput != "q");
+			break;
+		case "6":
+
+			Console.WriteLine(BLLManager.ProcessLogDownloadRequest(currCust, DALManager));
 			break;
 		case "q":
 			quit = true;

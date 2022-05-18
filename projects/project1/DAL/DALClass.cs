@@ -11,8 +11,9 @@ public class DALClass
 	public CategoryMapperClass _category { get; set; }
 	public OrderMapperClass _order { get; set; }
 	public CartMapperClass _cart { get; set; }
+	public ProductByStoreMapperClass _productByStore { get; set; }
 
-	string connectionString = $"Server = tcp:vadymrohachkoserver.database.windows.net,1433; Initial Catalog = OnlineStore1; Persist Security Info = False; User ID = VadymRohachkoDB; Password = 123; MultipleActiveResultSets = False; Encrypt = True; TrustServerCertificate = False; Connection Timeout = 30;";
+	string connectionString = $"Server = tcp:vadymrohachkoserver.database.windows.net,1433; Initial Catalog = OnlineStore1; Persist Security Info = False; User ID = VadymRohachkoDB; Password = The1OnlineStore!; MultipleActiveResultSets = False; Encrypt = True; TrustServerCertificate = False; Connection Timeout = 30;";
 
 	public DALClass()
 	{
@@ -22,6 +23,32 @@ public class DALClass
 		this._category = new CategoryMapperClass();
 		this._order = new OrderMapperClass();
 		this._cart = new CartMapperClass();
+		this._productByStore = new ProductByStoreMapperClass();
+	}
+
+
+
+	public List<ProductByStoreModelClass> GetProductByStore(int storeId)
+	{
+		List<ProductByStoreModelClass> products = new List<ProductByStoreModelClass>();
+		//string myQuery1 = "SELECT * FROM Products where orderId = @storeId;";
+		//string myQuery1 = "SELECT * FROM Products JOIN Stores ON Products.productId = Stores.productId WHERE stores.storeId = @storeId;";
+		string myQuery1 = "SELECT Products.productId, Products.categoryId, Products.currentPrice, Products.totalQuantity, Stores.storeId, Stores.quantity, Stores.location, ProductDescs.name, ProductDescs.author, ProductDescs.isbn, ProductDescs.description, ProductDescs.album, ProductDescs.company, ProductDescs.version  FROM Products JOIN Stores ON Products.productId = Stores.productId JOIN ProductDescs ON Products.descId = ProductDescs.descId WHERE stores.storeId = @storeId;";
+
+		using (SqlConnection query1 = new SqlConnection(connectionString))
+		{
+			SqlCommand command = new SqlCommand(myQuery1, query1);
+			command.Parameters.AddWithValue("@storeId", storeId);
+			command.Connection.Open();
+			SqlDataReader results = command.ExecuteReader();
+
+			while (results.Read())
+			{
+				products.Add(this._productByStore.DboToProductByStore(results));
+			}
+			query1.Close();
+			return products;
+		}
 	}
 
 	public List<CartModelClass> GetCart(int customerId)
@@ -152,16 +179,22 @@ public class DALClass
 			query1.Close();
 		}
 
-		using (SqlConnection query2 = new SqlConnection(connectionString))
+		try
 		{
-			SqlCommand command = new SqlCommand(myQuery2, query2);
-			command.Parameters.AddWithValue("@customerId", cust[0].customerId);
-			command.Parameters.AddWithValue("@actionId", actionId);
-			command.Connection.Open();
-			command.ExecuteNonQuery();
-			query2.Close();
+			using (SqlConnection query2 = new SqlConnection(connectionString))
+			{
+				SqlCommand command = new SqlCommand(myQuery2, query2);
+				command.Parameters.AddWithValue("@customerId", cust[0].customerId);
+				command.Parameters.AddWithValue("@actionId", actionId);
+				command.Connection.Open();
+				command.ExecuteNonQuery();
+				query2.Close();
+			}
 		}
-
+		catch (ArgumentOutOfRangeException)
+		{
+			return new List<CustomerModelClass>();
+		}
 		return cust;
 	}
 

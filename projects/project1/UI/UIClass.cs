@@ -10,7 +10,7 @@ public class UIClass
 	public void GreetUser()
 	{
 		ClearConsole();
-		Console.WriteLine("Welcome to the greatest online store in the world!\n");
+		Console.WriteLine("Welcome to the digital products online store!\n");
 	}
 
 	public void GreetCustomer(string lastFirstName)
@@ -204,7 +204,7 @@ public class UIClass
 	{
 		string userInput = "";
 
-		Console.WriteLine("Main menu:\n1 - Cart\n2 - Log\n3 - Stores\n4 - Orders\n5 - Categories\nq - Leave the store\n");
+		Console.WriteLine("Main menu:\n1 - Cart\n2 - Categories\n3 - Stores\n4 - Orders\n5 - Log to Screen\n6 - Download Log to File\nq - Leave the store\n");
 		userInput = Console.ReadLine();
 
 		switch (userInput)
@@ -214,6 +214,7 @@ public class UIClass
 			case "3":
 			case "4":
 			case "5":
+			case "6":
 			case "q":
 				return userInput;
 			default:
@@ -301,6 +302,22 @@ public class UIClass
 			foreach (var item in listOfCart)
 			{
 				Console.WriteLine($"Order #{item.CartId}\n");
+			}
+			Console.WriteLine();
+		}
+	}
+
+	public void displayProductByStore(List<ProductByStoreModelClass> listOfProduct)
+	{
+		if (listOfProduct.Count == 0)
+		{
+			Console.WriteLine("No Products in this store :(");
+		}
+		else
+		{
+			foreach (var item in listOfProduct)
+			{
+				Console.WriteLine($"Order #{item.ProductId.ToString()}\n");
 			}
 			Console.WriteLine();
 		}
