@@ -68,6 +68,14 @@ foreach (var item in ints)
 		//display the message
 		Console.Write("Salty ");
 	}
+	else
+	{
+		//increase the word per line counter
+		++numPerLineCounter;
+		//display number
+		Console.Write($"{item} ");
+	}
+
 	//do, if counter equal to the number of words in the line desired by the user
 	if (numPerLineCounter == quantityOfNumPrintPerLine)
 	{
