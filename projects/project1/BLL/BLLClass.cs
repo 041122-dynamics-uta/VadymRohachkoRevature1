@@ -6,12 +6,6 @@ using System.Collections.Generic;
 namespace BLL;
 public class BLLClass
 {
-
-	// public void ProcessLogin(CustomerModelClass customer)
-	// {
-
-	// }
-
 	public List<CustomerModelClass> ProcessLogin(Dictionary<string, string> user, DALClass dalObj)
 	{
 		CustomerModelClass customer = new CustomerModelClass();
@@ -39,6 +33,7 @@ public class BLLClass
 
 	public List<StoreLocationModelClass> ProcessStoreLocationRequest(DALClass dalObj)
 	{
+
 		return dalObj.GetStoreLocation();
 	}
 
