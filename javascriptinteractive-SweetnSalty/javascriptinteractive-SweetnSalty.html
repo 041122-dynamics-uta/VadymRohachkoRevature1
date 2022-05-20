@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- <style>
+      body {
+        color: blue;
+      }
+      button {
+        border: 1px solid gray;
+        color: white;
+        background-color: gray;
+        width: 150px;
+        height: 40px;
+        font-size: 15px;
+        cursor: pointer;
+      }
+      button:hover {
+        border-color: darkolivegreen;
+        background-color: darkolivegreen;
+      }
+      .newstyle {
+        color: green;
+      }
+    </style> -->
+    <style>
+			button
+			{
+  			background-color: #4CAF50; 
+  			border: none;
+  			color: white;
+  			padding: 10px 20px;
+  			text-align: center;
+  			text-decoration: none;
+  			display: inline-block;
+  			font-size: 16px;
+				border-radius: 5px;				
+			}
+
+			button:hover
+			{
+				cursor:pointer;
+				box-shadow: 5px 3px 3px grey;
+			}
+
+			.b-main-wrapper
+			{
+				position: fixed;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+			}
+
+			.b-info-header
+			{
+				text-align: center
+			}
+
+			.b-info
+			{
+
+			}
+
+			.b-info__par
+			{
+				font-weight: 600
+			}
+
+			.b-form__error
+			{
+				color: red;
+			}
+
+			.b-input-wrapper_display_none, .b-form_display_none, .b-result_display_none, .b-result-wrapper_display_none, .b-result-wrapper__par_display_none, .b-form__error_display_none
+			{
+				display: none;
+			}
+
+			.b-input-wrapper
+			{
+
+			}
+
+			.b-form
+			{
+			}
+
+			.b-form__button-submit
+			{
+
+			}
+
+			.b-form__label
+			{
+
+			}
+
+			.b-form__input-text
+			{
+
+			}
+
+			.b-result-wrapper
+			{
+
+			}
+			
+			.b-result-wrapper__par
+			{
+
+			}
+
+			.b-form__input
+			{
+				width: 100%;
+  			padding: 12px 20px;
+  			margin: 8px 0;
+  			box-sizing: border-box;
+
+			}
+
+
+
+		</style>
+  </head>
+  <body>
+
+    <div class="b-main-wrapper">
+      <h1 class="b-info-header">SweetAndSalty</h1>
+      <div class="b-info">
+        <p class="b-info__par">User inputs three numbers:</p>
+        <p class="b-info__par">The First is the start number</p>
+        <p class="b-info__par">The Second is the stop number</p>
+        <p class="b-info__par">
+          The third number is the quantity of numbers you will print per line
+        </p>
+        <p class="b-info__par">
+          If the number is a multiple of three, “Sweet” is printed instead of
+          the number to the console
+        </p>
+        <p class="b-info__par">
+          If the number is a multiple of five, “Salty” is printed instead of the
+          number to the console.
+        </p>
+        <p class="b-info__par">
+          For numbers which are multiples of both three and five, “Sweet’nSalty”
+          will be printed to the console (instead of the number)
+        </p>
+        <p class="b-info__par">
+          After the numbers have all been printed to the console, 3 separate
+          lines will be printed to the console: how many "Sweet", "Salty" and
+          "Sweet’nSalty".
+        </p>
+      </div>
+
+      <br />
+
+      <div class="b-input-wrapper ">	
+				<div class="b-form ">
+					<p>Start Game</p>
+          <button type="submit" class="b-form__button-submit" type="submit" value="Press to start" onClick="javascript:Submit();">Submit</button>
+        </div>
+				<div class="b-form b-form_display_none">
+					<span>Enter a start number</span>
+					<input class="b-form__input" placeholder="Enter the start number" type="text" id="me"> 
+					<p class="b-form__error b-form__error_display_none">ds</p>
+          <button type="submit" class="b-form__button-submit" type="submit" onClick="javascript:Submit();">Submit</button>
+        </div>
+				<div class="b-form b-form_display_none">
+					<span>Enter a final number</span>
+					<input type="text" class="b-form__input">
+					<p class="b-form__error b-form__error_display_none">df</p>
+          <button type="submit" class="b-form__button-submit" type="submit" onClick="javascript:Submit();">Submit</button>
+        </div>
+				<!-- <div class="b-form b-form_display_none">
+					<span>Enter quantity of numbers per line</span>
+					<input type="text" class="b-form__input">
+					<p class="b-form__error b-form__error_display_none">df</p>
+          <button type="submit" class="b-form__button-submit" type="submit" onClick="javascript:Submit();">Submit</button>
+        </div> -->
+				<div class="b-form b-form_display_none">
+					<p>Press enter to display your results</p><br>
+          <button type="submit" class="b-form__button-submit" type="submit" onClick="javascript:Submit();">Submit</button>
+        </div>
+			</div>
+
+      <div class="b-result-wrapper b-result-wrapper_display_none">
+      	<p class="b-result-wrapper__par ">sweet</p>
+      	<p class="b-result-wrapper__par">salty</p>
+      	<p class="b-result-wrapper__par">swetsalty</p>
+
+				<div class="b-form b-form_display_none">
+          <button type="reset" class="b-form__button-submit" type="submit" onClick="javascript:Submit();">Reset</button>
+        </div>
+			<div>
+    </div>
+
+    <script type="text/javascript">
+			var startValue;
+			var finishValue;
+			var lineQuantity;
+			
+
+			function Submit()
+			{
+				let collection = document.getElementsByClassName("b-form");
+				let inputValue;
+
+				if (!collection[0].classList.contains('b-form_display_none')) 
+				{
+					collection[0].classList.add('b-form_display_none');
+					collection[1].classList.remove('b-form_display_none');					
+				} 
+				else if (!collection[1].classList.contains('b-form_display_none')) 
+				{						
+					if(!CheckMinMax(collection[1].children[1].value))
+					{						
+						document.getElementsByClassName("b-form__error")[0].textContent = "Start value can not be less than 200 or more than 1000";
+						document.getElementsByClassName("b-form__error")[0].classList.remove("b-form__error_display_none");		
+						return;				
+					}	
+						collection[1].classList.add('b-form_display_none');
+						collection[2].classList.remove('b-form_display_none');
+						startValue = collection[1].children[1].value
+				} 
+				else if(!collection[2].classList.contains('b-form_display_none')) 
+				{	
+					finishValue = collection[2].children[1].value;
+					if (!CheckMinMax(finishValue)) {
+						document.getElementsByClassName("b-form__error")[1].textContent = "Start value can not be less than 200 or more than 1000";
+						document.getElementsByClassName("b-form__error")[1].classList.remove("b-form__error_display_none");	
+						finishValue = 0;	
+						return;	
+					}
+					else if (startValue >= finishValue)
+					{
+						document.getElementsByClassName("b-form__error")[1].textContent = `Start value ${startValue} can not be more than finish value`;
+						document.getElementsByClassName("b-form__error")[1].classList.remove("b-form__error_display_none");	
+						finishValue = 0;
+						return;
+					}
+					collection[2].classList.add('b-form_display_none');
+					collection[3].classList.remove('b-form_display_none');
+					finishValue = collection[2].children[1].value
+				}
+				// else if(!collection[3].classList.contains('b-form_display_none')) 
+				// {
+				// 	collection[3].classList.add('b-form_display_none');
+				// 	collection[4].classList.remove('b-form_display_none');
+				// 	lineQuantity = collection[1].children[1].value
+				// }
+				else if(!collection[3].classList.contains('b-form_display_none'))
+				{
+
+					// let formWrapper = document.getElementsByClassName("b-input-wrapper");
+					
+					// formWrapper[0].classList.add("b-input-wrapper_display_none");
+					// collection[0].classList.remove('b-form_display_none');
+					// collection[1].classList.add('b-form_display_none');
+					// collection[2].classList.add('b-form_display_none');
+					// collection[3].classList.add('b-form_display_none');
+				}
+			}
+
+
+
+				function CompareMinMax(min, max)
+				{
+					return (min >= max) == false ? false : true;
+				}
+
+				function CheckMinMax(input)
+				{
+					return (input > 200 && input < 1000) == true ? true : false;
+				}
+
+    </script>
+  </body>
+</html>
+
+<!-- public static string ReturnMySecret()
+            //{
+                //Console.WriteLine("Provide a valid Email");
+                //Console.WriteLine("Enter Email:");
+                //string Email = Console.ReadLine();
+                //Console.WriteLine("Enter MySecret:");
+                //string MySecret = "";
+                //ConsoleKeyInfo info = Console.ReadKey(true);
+                // while (info.Key != ConsoleKey.Enter)
+            //{
+            //if (info.Key != ConsoleKey.Backspace)
+            //{
+                //MySecret += info.KeyChar;
+                //info = Console.ReadKey(true);
+            //}
+            //else if (info.Key == ConsoleKey.Backspace)
+            //{
+            //if (!string.IsNullOrEmpty(password))
+            //{
+            //    password = password.Substring
+            //    (0, password.Length - 1);
+            //}
+            //info = Console.ReadKey(true);
+            //}
+        //}
+        //for (int i = 0; i < password.Length; i++)
+        //Console.Write -->
+
