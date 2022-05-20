@@ -152,16 +152,18 @@ public class DALClass
 			query1.Close();
 		}
 
-		using (SqlConnection query2 = new SqlConnection(connectionString))
+		if (cust.Count > 0)
 		{
-			SqlCommand command = new SqlCommand(myQuery2, query2);
-			command.Parameters.AddWithValue("@customerId", cust[0].customerId);
-			command.Parameters.AddWithValue("@actionId", actionId);
-			command.Connection.Open();
-			command.ExecuteNonQuery();
-			query2.Close();
+			using (SqlConnection query2 = new SqlConnection(connectionString))
+			{
+				SqlCommand command = new SqlCommand(myQuery2, query2);
+				command.Parameters.AddWithValue("@customerId", cust[0].customerId);
+				command.Parameters.AddWithValue("@actionId", actionId);
+				command.Connection.Open();
+				command.ExecuteNonQuery();
+				query2.Close();
+			}
 		}
-
 		return cust;
 	}
 
