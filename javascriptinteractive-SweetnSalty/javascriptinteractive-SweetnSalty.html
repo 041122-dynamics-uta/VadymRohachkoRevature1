@@ -5,28 +5,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <!-- <style>
-      body {
-        color: blue;
-      }
-      button {
-        border: 1px solid gray;
-        color: white;
-        background-color: gray;
-        width: 150px;
-        height: 40px;
-        font-size: 15px;
-        cursor: pointer;
-      }
-      button:hover {
-        border-color: darkolivegreen;
-        background-color: darkolivegreen;
-      }
-      .newstyle {
-        color: green;
-      }
-    </style> -->
     <style>
+			body
+			{
+				overflow: auto;
+			}
 			button
 			{
   			background-color: #4CAF50; 
@@ -48,10 +31,7 @@
 
 			.b-main-wrapper
 			{
-				position: fixed;
-				top: 50%;
-				left: 50%;
-				transform: translate(-50%, -50%);
+				margin: 0 auto; width: 50%;
 			}
 
 			.b-info-header
@@ -86,6 +66,7 @@
 
 			.b-form
 			{
+				overflow:auto
 			}
 
 			.b-form__button-submit
@@ -119,24 +100,26 @@
   			padding: 12px 20px;
   			margin: 8px 0;
   			box-sizing: border-box;
-
 			}
 
-
-
+			.b-form__result_text-color_white
+			{
+				color: white;
+			} 
+			
+			.b-form__result_bgd_green
+			{
+				background-color: green;
+			}
 		</style>
   </head>
   <body>
-
     <div class="b-main-wrapper">
       <h1 class="b-info-header">SweetAndSalty</h1>
       <div class="b-info">
         <p class="b-info__par">User inputs three numbers:</p>
         <p class="b-info__par">The First is the start number</p>
         <p class="b-info__par">The Second is the stop number</p>
-        <p class="b-info__par">
-          The third number is the quantity of numbers you will print per line
-        </p>
         <p class="b-info__par">
           If the number is a multiple of three, “Sweet” is printed instead of
           the number to the console
@@ -152,7 +135,7 @@
         <p class="b-info__par">
           After the numbers have all been printed to the console, 3 separate
           lines will be printed to the console: how many "Sweet", "Salty" and
-          "Sweet’nSalty".
+          "SweetnSalty".
         </p>
       </div>
 
@@ -165,36 +148,29 @@
         </div>
 				<div class="b-form b-form_display_none">
 					<span>Enter a start number</span>
-					<input class="b-form__input" placeholder="Enter the start number" type="text" id="me"> 
-					<p class="b-form__error b-form__error_display_none">ds</p>
+					<input class="b-form__input" placeholder="Enter the start number" type="text"> 
+					<p class="b-form__error b-form__error_display_none">error</p>
           <button type="submit" class="b-form__button-submit" type="submit" onClick="javascript:Submit();">Submit</button>
         </div>
 				<div class="b-form b-form_display_none">
 					<span>Enter a final number</span>
 					<input type="text" class="b-form__input">
-					<p class="b-form__error b-form__error_display_none">df</p>
+					<p class="b-form__error b-form__error_display_none">error</p>
           <button type="submit" class="b-form__button-submit" type="submit" onClick="javascript:Submit();">Submit</button>
         </div>
-				<!-- <div class="b-form b-form_display_none">
-					<span>Enter quantity of numbers per line</span>
-					<input type="text" class="b-form__input">
-					<p class="b-form__error b-form__error_display_none">df</p>
-          <button type="submit" class="b-form__button-submit" type="submit" onClick="javascript:Submit();">Submit</button>
-        </div> -->
 				<div class="b-form b-form_display_none">
 					<p>Press enter to display your results</p><br>
           <button type="submit" class="b-form__button-submit" type="submit" onClick="javascript:Submit();">Submit</button>
         </div>
 			</div>
 
-      <div class="b-result-wrapper b-result-wrapper_display_none">
-      	<p class="b-result-wrapper__par ">sweet</p>
-      	<p class="b-result-wrapper__par">salty</p>
-      	<p class="b-result-wrapper__par">swetsalty</p>
+      <div class="b-form b-form_display_none">
+				
+      	<p class="b-form__result b-form__result_text-color_white b-form__result_bgd_green">sweet</p>
+      	<p class="b-form__result b-form__result_text-color_white b-form__result_bgd_green">salty</p>
+      	<p class="b-form__result b-form__result_text-color_white b-form__result_bgd_green">swetsalty</p>
 
-				<div class="b-form b-form_display_none">
-          <button type="reset" class="b-form__button-submit" type="submit" onClick="javascript:Submit();">Reset</button>
-        </div>
+        <button class="b-form__button-submit" type="submit" onClick="javascript:Submit();">Reset</button>
 			<div>
     </div>
 
@@ -202,6 +178,11 @@
 			var startValue;
 			var finishValue;
 			var lineQuantity;
+			var sweetandsalties = [];
+			//counters
+			var sweet = 0;
+			var salty = 0;
+			var sweetSalty = 0;
 			
 
 			function Submit()
@@ -224,7 +205,7 @@
 					}	
 						collection[1].classList.add('b-form_display_none');
 						collection[2].classList.remove('b-form_display_none');
-						startValue = collection[1].children[1].value
+						startValue = collection[1].children[1].value;
 				} 
 				else if(!collection[2].classList.contains('b-form_display_none')) 
 				{	
@@ -244,68 +225,118 @@
 					}
 					collection[2].classList.add('b-form_display_none');
 					collection[3].classList.remove('b-form_display_none');
-					finishValue = collection[2].children[1].value
+					finishValue = collection[2].children[1].value;
 				}
-				// else if(!collection[3].classList.contains('b-form_display_none')) 
-				// {
-				// 	collection[3].classList.add('b-form_display_none');
-				// 	collection[4].classList.remove('b-form_display_none');
-				// 	lineQuantity = collection[1].children[1].value
-				// }
 				else if(!collection[3].classList.contains('b-form_display_none'))
 				{
+					collection[3].classList.add('b-form_display_none');
+					collection[4].classList.remove('b-form_display_none');
 
-					// let formWrapper = document.getElementsByClassName("b-input-wrapper");
+					sweetandsalties = SweetAndSalty(startValue, finishValue);
+
+					const results = document.getElementsByClassName('b-form__result');
+					results[0].innerText = `Sweet = ${sweet}`;
+					results[1].innerText = `Salty = ${salty}`;
+					results[2].innerText = `SweetnSaty = ${sweetSalty}`;
 					
-					// formWrapper[0].classList.add("b-input-wrapper_display_none");
-					// collection[0].classList.remove('b-form_display_none');
-					// collection[1].classList.add('b-form_display_none');
-					// collection[2].classList.add('b-form_display_none');
-					// collection[3].classList.add('b-form_display_none');
+					const div = document.createElement('div');	
+					div.setAttribute('class', 'b-form');				
+					let strOf40Elem = "";
+
+					for (let index = 0; index < sweetandsalties.length; index++) 
+					{
+							const p = document.createElement('p');
+							p.innerText = sweetandsalties[index].toString();
+							div.appendChild(p);
+							// append to DOM
+							collection[4].prepend(div);
+					}					
+				}
+				else if(!collection[4].classList.contains('b-form_display_none'))
+				{
+					startValue = 0;
+					finishValue = 0;
+					sweetandsalties = [];
+					sweet = 0;
+					salty = 0;
+					sweetSalty = 0;
+
+					collection[1].children[1].value = "";
+					collection[2].children[1].value = "";
+				
+					document.getElementsByClassName("b-form__error")[0].classList.add("b-form__error_display_none");	
+					document.getElementsByClassName("b-form__error")[1].classList.add("b-form__error_display_none");	
+					collection[0].classList.remove('b-form_display_none');
+					collection[1].classList.add('b-form_display_none');
+					collection[2].classList.add('b-form_display_none');
+					collection[3].classList.add('b-form_display_none');
+					collection[4].classList.add('b-form_display_none');
 				}
 			}
 
+			function SweetAndSalty(start, finish)
+			{
+				sweet = 0;
+				sweet = 0;
+				sweetSalty = 0;
+				var strOfWords = "";
+				const sweetnSalties = [];
+				var counter = 0;
 
+				//iteration in `for` loop
+				for (let index = start; index <= finish; index++) 
+				{
+					++counter;
+  			//if multiples of three and five
+  			if (index % 3 === 0 && index % 5 === 0) {
+    		//concatenate " SweetnSalty" to the string
+    		strOfWords = strOfWords.concat(" SweetnSalty");
+				//sweetnSalties.push("SweetnSalty");
+    		//increase counter by one
+    		++sweetSalty;
+  			} else if (index % 3 === 0) {
+    		//concatenate " Sweet" to the string
+    		strOfWords = strOfWords.concat(" Sweet");
+				//sweetnSalties.push("Sweet");
+    		//increase counter by one
+    		++sweet;
+  			} else if (index % 5 === 0) {
+    		//concatenate " Salty" to the string
+    		strOfWords = strOfWords.concat(" Salty");
+				//sweetnSalties.push("Salty");
+  			} else {
+    		//concatenate number to the string
+    		strOfWords = `${strOfWords} ${index}`;
+				//sweetnSalties.push(index.toString());
+    		//increase counter by one
+    		++salty;
+  			}
+				if (counter === 40) {
+					sweetnSalties.push(strOfWords);
+					strOfWords = "";
+					counter = 0;
+				}
+				}
+
+				if(counter > 0)
+				{
+					sweetnSalties.push(strOfWords);
+				}
+
+				//return strOfWords;
+				return sweetnSalties;
+			}
 
 				function CompareMinMax(min, max)
 				{
-					return (min >= max) == false ? false : true;
+					return (min >= max) == true ? true : false;
 				}
 
 				function CheckMinMax(input)
 				{
-					return (input > 200 && input < 1000) == true ? true : false;
+					return (input >= 200 && input <= 1000) == true ? true : false;
 				}
 
     </script>
   </body>
 </html>
-
-<!-- public static string ReturnMySecret()
-            //{
-                //Console.WriteLine("Provide a valid Email");
-                //Console.WriteLine("Enter Email:");
-                //string Email = Console.ReadLine();
-                //Console.WriteLine("Enter MySecret:");
-                //string MySecret = "";
-                //ConsoleKeyInfo info = Console.ReadKey(true);
-                // while (info.Key != ConsoleKey.Enter)
-            //{
-            //if (info.Key != ConsoleKey.Backspace)
-            //{
-                //MySecret += info.KeyChar;
-                //info = Console.ReadKey(true);
-            //}
-            //else if (info.Key == ConsoleKey.Backspace)
-            //{
-            //if (!string.IsNullOrEmpty(password))
-            //{
-            //    password = password.Substring
-            //    (0, password.Length - 1);
-            //}
-            //info = Console.ReadKey(true);
-            //}
-        //}
-        //for (int i = 0; i < password.Length; i++)
-        //Console.Write -->
-
