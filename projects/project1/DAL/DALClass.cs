@@ -12,7 +12,7 @@ public class DALClass
 	public OrderMapperClass _order { get; set; }
 	public CartMapperClass _cart { get; set; }
 
-	string connectionString = $"Server = tcp:vadymrohachkoserver.database.windows.net,1433; Initial Catalog = OnlineStore1; Persist Security Info = False; User ID = VadymRohachkoDB; Password = 123; MultipleActiveResultSets = False; Encrypt = True; TrustServerCertificate = False; Connection Timeout = 30;";
+	string connectionString = $"Server = tcp:vadymrohachkoserver.database.windows.net,1433; Initial Catalog = OnlineStore1; Persist Security Info = False; User ID = VadymRohachkoDB; Password = The1OnlineStore!; MultipleActiveResultSets = False; Encrypt = True; TrustServerCertificate = False; Connection Timeout = 30;";
 
 	public DALClass()
 	{
@@ -89,7 +89,7 @@ public class DALClass
 	public List<StoreLocationModelClass> GetStoreLocation()
 	{
 		List<StoreLocationModelClass> storeLocation = new List<StoreLocationModelClass>();
-		string myQuery1 = "SELECT * FROM Stores;";
+		string myQuery1 = "SELECT DISTINCT storeId, location FROM Stores;";
 
 		using (SqlConnection query1 = new SqlConnection(connectionString))
 		{
