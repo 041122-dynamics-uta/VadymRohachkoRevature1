@@ -9,7 +9,7 @@
             "program": "${workspaceFolder}/OnlineStore/bin/Debug/net6.0/OnlineStore.dll",
             "args": [],
             "cwd": "${workspaceFolder}",
-            "console": "internalConsole",
+            "console": "externalTerminal",
             "stopAtEntry": false
         }
     ]
