@@ -124,15 +124,18 @@ do
 					//display the city of the chosen store
 					Console.WriteLine($"Store at {stores[storeLocationInput]}");
 					string category = "";
+					//display the categories
 					UIManager.displayCategory(BLLManager.ProcessCategoryRequest(DALManager), true);
 					do
 					{
+						//choose a category
 						category = Console.ReadLine();
 						switch (category)
 						{
 							case "0":
 								UIManager.HintToMoveToPrevMenu();
 								Console.WriteLine("Show all");
+								UIManager.displayProducts(BLLManager.ProcessProductRequest(DALManager, "0"));
 								break;
 							case "1":
 								UIManager.HintToMoveToPrevMenu();
