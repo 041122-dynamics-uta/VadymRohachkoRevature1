@@ -231,17 +231,18 @@ public class DALClass
 
 	}
 
-	public List<ProductModelClass> GetProduct(int storeId)
+	public List<ProductModelClass> GetProduct(int storeId, int categoryId)
 	{
 		List<ProductModelClass> products = new List<ProductModelClass>();
 
-		string productsByStore = "SELECT Stores.storeId, Stores.productId, Products.categoryId, Products.descId, Stores.quantity, Stores.availability, Stores.location, Products.currentPrice, Categories.name, Categories.description, ProductDescs.name, ProductDescs.author, ProductDescs.isbn, ProductDescs.description, ProductDescs.album, ProductDescs.company, ProductDescs.version FROM Stores JOIN Products ON Stores.productId = Products.productId JOIN ProductDescs ON Products.descId = ProductDescs.descId JOIN Categories ON Products.categoryId = Categories.categoryId WHERE Stores.storeId = @storeId;";
+		string productsByStore = "SELECT Stores.storeId, Stores.productId, Products.categoryId, Products.descId, Stores.quantity, Stores.availability, Stores.location, Products.currentPrice, Categories.name, Categories.description, ProductDescs.name, ProductDescs.author, ProductDescs.isbn, ProductDescs.description, ProductDescs.album, ProductDescs.company, ProductDescs.version FROM Stores JOIN Products ON Stores.productId = Products.productId JOIN ProductDescs ON Products.descId = ProductDescs.descId JOIN Categories ON Products.categoryId = Categories.categoryId WHERE Stores.storeId = @storeId AND Categories.categoryId = @categoryId;";
 
 
 		using (SqlConnection query1 = new SqlConnection(connectionString))
 		{
 			SqlCommand command = new SqlCommand(productsByStore, query1);
 			command.Parameters.AddWithValue("@storeId", storeId);
+			command.Parameters.AddWithValue("@categoryId", categoryId);
 			command.Connection.Open();
 			SqlDataReader results = command.ExecuteReader();
 

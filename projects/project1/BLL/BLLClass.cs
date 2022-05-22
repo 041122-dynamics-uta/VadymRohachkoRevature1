@@ -52,9 +52,9 @@ public class BLLClass
 		return dalObj.GetCart(id);
 	}
 
-	public List<ProductModelClass> ProcessProductRequest(DALClass dalObj, int storeId)
+	public List<ProductModelClass> ProcessProductRequest(DALClass dalObj, int storeId, int categoryId)
 	{
-		return dalObj.GetProduct(storeId);
+		return dalObj.GetProduct(storeId, categoryId);
 	}
 
 }
