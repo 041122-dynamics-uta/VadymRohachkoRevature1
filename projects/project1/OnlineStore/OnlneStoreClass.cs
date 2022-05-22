@@ -111,13 +111,15 @@ do
 		case "3":
 			//get list of stores
 			Dictionary<string, string> stores = UIManager.displayStoreLocation(BLLManager.ProcessStoreLocationRequest(DALManager));
-			string? storeLocationInput = "";
+			string storeLocationInput = "";
+			//work with the stores' choice
 			do
 			{
 				Console.WriteLine("Press q to return to previous menu.");
 				Console.WriteLine("Choose a store from the list:");
 				storeLocationInput = Console.ReadLine();
-				string? locationOut = "";
+				string locationOut = "";
+				//check correct store input
 				bool isLocation = stores.TryGetValue(storeLocationInput, out locationOut);
 				if (!isLocation)
 				{
@@ -125,41 +127,61 @@ do
 					stores = UIManager.displayStoreLocation(BLLManager.ProcessStoreLocationRequest(DALManager));
 				}
 				//if "q" move to the previous menu
-				//if a number from the list, show the content of the store
+				//if a number from the list, show the categories
 				if (storeLocationInput != "q" && isLocation)
 				{
-					UIManager.HintToMoveToPrevMenu();
-					//display the city of the chosen store
-					Console.WriteLine($"Store at {stores[storeLocationInput]}");
 					string category = "";
-					//display the categories
-					UIManager.displayCategory(BLLManager.ProcessCategoryRequest(DALManager), true);
+					string catigoryOut = "";
+					List<int> categories = new List<int>();
 					do
 					{
-						//choose a category
+						UIManager.HintToMoveToPrevMenu();
+						Console.WriteLine($"Store at {stores[storeLocationInput]}");
+						//display the categories
+						categories = UIManager.displayCategory(BLLManager.ProcessCategoryRequest(DALManager), true);
+						//choose a category and show contents
 						category = Console.ReadLine();
+						//check user's input
+						bool hasCategory = stores.TryGetValue(storeLocationInput, out catigoryOut);
 						switch (category)
 						{
 							case "1":
-								UIManager.HintToMoveToPrevMenu();
-								Console.WriteLine("Show Books");
-								UIManager.displayProduct(BLLManager.ProcessProductRequest(DALManager, Convert.ToInt32("1")));
-								break;
 							case "2":
-								UIManager.HintToMoveToPrevMenu();
-								Console.WriteLine("Show Music");
-								UIManager.displayProduct(BLLManager.ProcessProductRequest(DALManager, Convert.ToInt32("2")));
-								break;
 							case "3":
-								UIManager.HintToMoveToPrevMenu();
-								Console.WriteLine("Show Software");
-								UIManager.displayProduct(BLLManager.ProcessProductRequest(DALManager, Convert.ToInt32("3")));
+								//go to list of products
+								string userProductInput = "";
+								do
+								{
+									UIManager.HintToMoveToPrevMenu();
+									Console.WriteLine("Choose a product by ID:");
+									List<int> products = UIManager.displayProduct(BLLManager.ProcessProductRequest(DALManager, Convert.ToInt32(storeLocationInput), Convert.ToInt32(category)));
+									userProductInput = Console.ReadLine();
+									try
+									{
+										//Convert may throw an exception 
+										if (userProductInput != "q" && !products.Contains(Convert.ToInt32(userProductInput)))
+										{
+											Console.WriteLine("Error: Wrong ID");
+										}
+										else if (userProductInput != "q")
+										{
+											//put into the cart
+											Console.WriteLine($"Product with ID {userProductInput} was added to the cart!");
+											Console.WriteLine($"The shopping cart contains {0} item/s.");
+											Console.WriteLine($"Total price is ${0}.");
+										}
+									}
+									catch (System.Exception)
+									{
+										Console.WriteLine("Error: Wrong ID");
+									}
+
+								} while (userProductInput != "q");
 								break;
 							case "q":
 								UIManager.displayStoreLocation(BLLManager.ProcessStoreLocationRequest(DALManager));
 								break;
 							default:
-								UIManager.HintToMoveToPrevMenu();
 								Console.WriteLine("Incorrect input :(");
 								break;
 						}

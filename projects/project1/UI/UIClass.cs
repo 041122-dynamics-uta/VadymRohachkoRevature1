@@ -241,52 +241,6 @@ public class UIClass
 
 	}
 
-	public Dictionary<string, string> displayStoreLocation(List<StoreLocationModelClass> listOfLocations)
-	{
-		Dictionary<string, string> stores = new Dictionary<string, string>();
-		if (listOfLocations.Count == 0)
-		{
-			Console.WriteLine("No locations in our store :(");
-		}
-		else
-		{
-			for (int item = 0; item < listOfLocations.Count; ++item)
-			{
-				stores.Add(Convert.ToString(listOfLocations[item].StoreId), listOfLocations[item].Location);
-				Console.WriteLine($"{listOfLocations[item].StoreId} {listOfLocations[item].Location}");
-			}
-			Console.WriteLine();
-			return stores;
-		}
-		return new Dictionary<string, string>();
-	}
-
-	public void displayCategory(List<CategoryModelClass> listOfCategory, bool isFullCategoryDescription = false)
-	{
-		if (listOfCategory.Count == 0)
-		{
-			Console.WriteLine("No categoriess in our store :(");
-		}
-		else if (!isFullCategoryDescription)
-		{
-			Console.WriteLine("Categories:");
-			foreach (var item in listOfCategory)
-			{
-				Console.WriteLine($"{item.Name}\nDescription: {item.Description}");
-			}
-			Console.WriteLine();
-		}
-		else if (isFullCategoryDescription)
-		{
-			Console.WriteLine("Categories:");
-			foreach (var item in listOfCategory)
-			{
-				Console.WriteLine($"{item.CategoryId} - {item.Name}");
-			}
-			Console.WriteLine();
-		}
-	}
-
 	public void displayOrder(List<OrderModelClass> listOfOrder)
 	{
 		if (listOfOrder.Count == 0)
@@ -324,8 +278,30 @@ public class UIClass
 		Console.WriteLine("\nPress 'q' to move to the previous menu");
 	}
 
-	public void displayProduct(List<ProductModelClass> listOfProducts)
+	public Dictionary<string, string> displayStoreLocation(List<StoreLocationModelClass> listOfLocations)
 	{
+		Dictionary<string, string> stores = new Dictionary<string, string>();
+		if (listOfLocations.Count == 0)
+		{
+			Console.WriteLine("No locations in our store :(");
+		}
+		else
+		{
+			for (int item = 0; item < listOfLocations.Count; ++item)
+			{
+				stores.Add(Convert.ToString(listOfLocations[item].StoreId), listOfLocations[item].Location);
+				Console.WriteLine($"{listOfLocations[item].StoreId} {listOfLocations[item].Location}");
+			}
+			Console.WriteLine();
+			return stores;
+		}
+		return new Dictionary<string, string>();
+	}
+
+	public List<int> displayProduct(List<ProductModelClass> listOfProducts)
+	{
+		List<int> products = new List<int>();
+
 		if (listOfProducts.Count == 0)
 		{
 			Console.WriteLine("No products in this store :(");
@@ -333,12 +309,45 @@ public class UIClass
 		else
 		{
 			Console.WriteLine($"Locattion: {listOfProducts[0].Location}");
-			Console.WriteLine($"Locattion: {listOfProducts[0].CategoryName}");
-			// foreach (var item in listOfProducts)
-			// {
-
-			// }
+			Console.WriteLine($"Category: {listOfProducts[0].CategoryName}");
+			foreach (var item in listOfProducts)
+			{
+				products.Add(item.ProductId);
+				Console.WriteLine($"ID: {item.ProductId} Quantity: {item.Quantity} Title: {item.ProductName} Price: {item.CurrentPrice} Author: {item.ProductAuthor} Company: {item.ProductCompany}");
+			}
 		}
+		return products;
+	}
+
+	public List<int> displayCategory(List<CategoryModelClass> listOfCategory, bool isFullCategoryDescription = false)
+	{
+		List<int> categories = new List<int>();
+
+		if (listOfCategory.Count == 0)
+		{
+			Console.WriteLine("No categoriess in our store :(");
+		}
+		else if (!isFullCategoryDescription)
+		{
+			Console.WriteLine("Categories:");
+			foreach (var item in listOfCategory)
+			{
+				categories.Add(item.CategoryId);
+				Console.WriteLine($"{item.Name}\nDescription: {item.Description}");
+			}
+			Console.WriteLine();
+		}
+		else if (isFullCategoryDescription)
+		{
+			Console.WriteLine("Categories:");
+			foreach (var item in listOfCategory)
+			{
+				categories.Add(item.CategoryId);
+				Console.WriteLine($"{item.CategoryId} - {item.Name}");
+			}
+			Console.WriteLine();
+		}
+		return categories;
 	}
 
 }
