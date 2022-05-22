@@ -228,4 +228,10 @@ public class DALClass
 		}
 
 	}
+
+	public List<ProductModelClass> GetProduct(string productLocation)
+	{
+
+		return new List<ProductModelClass>();
+	}
 }

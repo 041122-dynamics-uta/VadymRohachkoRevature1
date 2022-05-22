@@ -325,6 +325,22 @@ public class UIClass
 		Console.WriteLine("\nPress 'q' to move to the previous menu");
 	}
 
+	public void displayProduct(List<ProductModelClass> listOfProducts)
+	{
+		if (listOfProducts.Count == 0)
+		{
+			Console.WriteLine("No products in this store :(");
+		}
+		else
+		{
+			foreach (var item in listOfProducts)
+			{
+				Console.WriteLine($"Product #{item.ProductId}\n");
+			}
+			Console.WriteLine();
+		}
+	}
+
 }
 
 
