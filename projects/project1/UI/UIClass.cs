@@ -241,20 +241,24 @@ public class UIClass
 
 	}
 
-	public void displayStoreLocation(List<StoreLocationModelClass> listOfLocations)
+	public Dictionary<string, string> displayStoreLocation(List<StoreLocationModelClass> listOfLocations)
 	{
+		Dictionary<string, string> stores = new Dictionary<string, string>();
 		if (listOfLocations.Count == 0)
 		{
 			Console.WriteLine("No locations in our store :(");
 		}
 		else
 		{
-			foreach (var item in listOfLocations)
+			for (int item = 0; item < listOfLocations.Count; ++item)
 			{
-				Console.WriteLine($"{item.StoreId} {item.Location}");
+				stores.Add(Convert.ToString(listOfLocations[item].StoreId), listOfLocations[item].Location);
+				Console.WriteLine($"{listOfLocations[item].StoreId} {listOfLocations[item].Location}");
 			}
 			Console.WriteLine();
+			return stores;
 		}
+		return new Dictionary<string, string>();
 	}
 
 	public void displayCategory(List<CategoryModelClass> listOfCategory, bool isFullCategoryDescription = false)
@@ -314,6 +318,11 @@ public class UIClass
 			}
 			Console.WriteLine();
 		}
+	}
+
+	public void HintToMoveToPrevMenu()
+	{
+		Console.WriteLine("\nPress 'q' to move to the previous menu");
 	}
 
 }
