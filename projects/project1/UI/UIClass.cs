@@ -182,7 +182,7 @@ public class UIClass
 
 	public void ClearConsole()
 	{
-		System.Console.Clear();
+		//System.Console.Clear();
 	}
 
 	public void ExitApp()

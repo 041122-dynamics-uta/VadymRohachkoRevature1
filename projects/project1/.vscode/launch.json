@@ -8,9 +8,14 @@
             "preLaunchTask": "build",
             "program": "${workspaceFolder}/OnlineStore/bin/Debug/net6.0/OnlineStore.dll",
             "args": [],
-            "cwd": "${workspaceFolder}",
-            "console": "externalTerminal",
+            "cwd": "${workspaceFolder}/OnlineStore",
+            "console": "externalTerminal",//"internalConsole",
             "stopAtEntry": false
+        },
+        {
+            "name": ".NET Core Attach",
+            "type": "coreclr",
+            "request": "attach"
         }
     ]
 }
