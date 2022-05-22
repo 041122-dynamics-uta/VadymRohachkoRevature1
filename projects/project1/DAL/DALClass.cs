@@ -101,6 +101,7 @@ public class DALClass
 			{
 				storeLocation.Add(this._location.DboToStoreLocation(results));
 			}
+
 			query1.Close();
 			return storeLocation;
 		}

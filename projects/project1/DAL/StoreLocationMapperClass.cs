@@ -10,7 +10,7 @@ namespace DAL
 			StoreLocationModelClass storeLocation = new StoreLocationModelClass
 			{
 				StoreId = (int)reader[0],
-				Location = (string)reader[4]
+				Location = (string)reader[1]
 			};
 			return storeLocation;
 		}
