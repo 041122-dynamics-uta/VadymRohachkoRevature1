@@ -109,16 +109,24 @@ do
 			} while (logLeaveInput != "q");
 			break;
 		case "3":
+			//get list of stores
 			Dictionary<string, string> stores = UIManager.displayStoreLocation(BLLManager.ProcessStoreLocationRequest(DALManager));
-			string storeLocationInput = "";
+			string? storeLocationInput = "";
 			do
 			{
 				Console.WriteLine("Press q to return to previous menu.");
 				Console.WriteLine("Choose a store from the list:");
 				storeLocationInput = Console.ReadLine();
+				string? locationOut = "";
+				bool isLocation = stores.TryGetValue(storeLocationInput, out locationOut);
+				if (!isLocation)
+				{
+					Console.WriteLine("Incorrect location");
+					stores = UIManager.displayStoreLocation(BLLManager.ProcessStoreLocationRequest(DALManager));
+				}
 				//if "q" move to the previous menu
 				//if a number from the list, show the content of the store
-				if (storeLocationInput != "q")
+				if (storeLocationInput != "q" && isLocation)
 				{
 					UIManager.HintToMoveToPrevMenu();
 					//display the city of the chosen store
@@ -132,22 +140,20 @@ do
 						category = Console.ReadLine();
 						switch (category)
 						{
-							case "0":
-								UIManager.HintToMoveToPrevMenu();
-								Console.WriteLine("Show all");
-								UIManager.displayProducts(BLLManager.ProcessProductRequest(DALManager, "0"));
-								break;
 							case "1":
 								UIManager.HintToMoveToPrevMenu();
 								Console.WriteLine("Show Books");
+								UIManager.displayProduct(BLLManager.ProcessProductRequest(DALManager, Convert.ToInt32("1")));
 								break;
 							case "2":
 								UIManager.HintToMoveToPrevMenu();
 								Console.WriteLine("Show Music");
+								UIManager.displayProduct(BLLManager.ProcessProductRequest(DALManager, Convert.ToInt32("2")));
 								break;
 							case "3":
 								UIManager.HintToMoveToPrevMenu();
 								Console.WriteLine("Show Software");
+								UIManager.displayProduct(BLLManager.ProcessProductRequest(DALManager, Convert.ToInt32("3")));
 								break;
 							case "q":
 								UIManager.displayStoreLocation(BLLManager.ProcessStoreLocationRequest(DALManager));

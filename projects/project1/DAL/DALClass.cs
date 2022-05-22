@@ -11,6 +11,7 @@ public class DALClass
 	public CategoryMapperClass _category { get; set; }
 	public OrderMapperClass _order { get; set; }
 	public CartMapperClass _cart { get; set; }
+	public ProductMapperClass _product { get; set; }
 
 	string connectionString = $"Server = tcp:vadymrohachkoserver.database.windows.net,1433; Initial Catalog = OnlineStore1; Persist Security Info = False; User ID = VadymRohachkoDB; Password = The1OnlineStore!; MultipleActiveResultSets = False; Encrypt = True; TrustServerCertificate = False; Connection Timeout = 30;";
 
@@ -22,6 +23,7 @@ public class DALClass
 		this._category = new CategoryMapperClass();
 		this._order = new OrderMapperClass();
 		this._cart = new CartMapperClass();
+		this._product = new ProductMapperClass();
 	}
 
 	public List<CartModelClass> GetCart(int customerId)
@@ -229,9 +231,27 @@ public class DALClass
 
 	}
 
-	public List<ProductModelClass> GetProduct(string productLocation)
+	public List<ProductModelClass> GetProduct(int storeId)
 	{
+		List<ProductModelClass> products = new List<ProductModelClass>();
 
+		string productsByStore = "SELECT Stores.storeId, Stores.productId, Products.categoryId, Products.descId, Stores.quantity, Stores.availability, Stores.location, Products.currentPrice, Categories.name, Categories.description, ProductDescs.name, ProductDescs.author, ProductDescs.isbn, ProductDescs.description, ProductDescs.album, ProductDescs.company, ProductDescs.version FROM Stores JOIN Products ON Stores.productId = Products.productId JOIN ProductDescs ON Products.descId = ProductDescs.descId JOIN Categories ON Products.categoryId = Categories.categoryId WHERE Stores.storeId = @storeId;";
+
+
+		using (SqlConnection query1 = new SqlConnection(connectionString))
+		{
+			SqlCommand command = new SqlCommand(productsByStore, query1);
+			command.Parameters.AddWithValue("@storeId", storeId);
+			command.Connection.Open();
+			SqlDataReader results = command.ExecuteReader();
+
+			while (results.Read())
+			{
+				products.Add(this._product.DboToProduct(results));
+			}
+			query1.Close();
+			return products;
+		}
 		return new List<ProductModelClass>();
 	}
 }

@@ -279,7 +279,6 @@ public class UIClass
 		else if (isFullCategoryDescription)
 		{
 			Console.WriteLine("Categories:");
-			Console.WriteLine("0 - Show all products");
 			foreach (var item in listOfCategory)
 			{
 				Console.WriteLine($"{item.CategoryId} - {item.Name}");
@@ -333,11 +332,12 @@ public class UIClass
 		}
 		else
 		{
-			foreach (var item in listOfProducts)
-			{
-				Console.WriteLine($"Product #{item.ProductId}\n");
-			}
-			Console.WriteLine();
+			Console.WriteLine($"Locattion: {listOfProducts[0].Location}");
+			Console.WriteLine($"Locattion: {listOfProducts[0].CategoryName}");
+			// foreach (var item in listOfProducts)
+			// {
+
+			// }
 		}
 	}
 
