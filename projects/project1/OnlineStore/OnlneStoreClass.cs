@@ -109,18 +109,52 @@ do
 			} while (logLeaveInput != "q");
 			break;
 		case "3":
-			UIManager.displayStoreLocation(BLLManager.ProcessStoreLocationRequest(DALManager));
+			Dictionary<string, string> stores = UIManager.displayStoreLocation(BLLManager.ProcessStoreLocationRequest(DALManager));
 			string storeLocationInput = "";
 			do
 			{
 				Console.WriteLine("Press q to return to previous menu.");
-				Console.WriteLine("Choose a store from the list above:");
+				Console.WriteLine("Choose a store from the list:");
 				storeLocationInput = Console.ReadLine();
 				//if "q" move to the previous menu
 				//if a number from the list, show the content of the store
 				if (storeLocationInput != "q")
 				{
+					UIManager.HintToMoveToPrevMenu();
+					//display the city of the chosen store
+					Console.WriteLine($"Store at {stores[storeLocationInput]}");
+					string category = "";
 					UIManager.displayCategory(BLLManager.ProcessCategoryRequest(DALManager), true);
+					do
+					{
+						category = Console.ReadLine();
+						switch (category)
+						{
+							case "0":
+								UIManager.HintToMoveToPrevMenu();
+								Console.WriteLine("Show all");
+								break;
+							case "1":
+								UIManager.HintToMoveToPrevMenu();
+								Console.WriteLine("Show Books");
+								break;
+							case "2":
+								UIManager.HintToMoveToPrevMenu();
+								Console.WriteLine("Show Music");
+								break;
+							case "3":
+								UIManager.HintToMoveToPrevMenu();
+								Console.WriteLine("Show Software");
+								break;
+							case "q":
+								UIManager.displayStoreLocation(BLLManager.ProcessStoreLocationRequest(DALManager));
+								break;
+							default:
+								UIManager.HintToMoveToPrevMenu();
+								Console.WriteLine("Incorrect input :(");
+								break;
+						}
+					} while (category != "q");
 				}
 			} while (storeLocationInput != "q");
 			break;
