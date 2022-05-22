@@ -25,7 +25,7 @@ public class UIClass
 
 	public string ChooseLoginOrRegister()
 	{
-		//ClearConsole();
+		ClearConsole();
 		Console.WriteLine("Choose:\n1 - Login\n2 - Register\nAny other key - Quit the app\n");
 		string choiceLogingOrRegister = Console.ReadLine();
 		return choiceLogingOrRegister;
@@ -232,7 +232,6 @@ public class UIClass
 		}
 		else
 		{
-			//Console.WriteLine(listOfLogs.Count);
 			foreach (var item in listOfLogs)
 			{
 				Console.WriteLine(item.DateTime + " " + item.ActionName);
@@ -252,23 +251,34 @@ public class UIClass
 		{
 			foreach (var item in listOfLocations)
 			{
-				Console.WriteLine($"#{item.StoreId} located in:  {item.Location}");
+				Console.WriteLine($"{item.StoreId} {item.Location}");
 			}
 			Console.WriteLine();
 		}
 	}
 
-	public void displayCategory(List<CategoryModelClass> listOfCategory)
+	public void displayCategory(List<CategoryModelClass> listOfCategory, bool isFullCategoryDescription = false)
 	{
 		if (listOfCategory.Count == 0)
 		{
 			Console.WriteLine("No categoriess in our store :(");
 		}
-		else
+		else if (!isFullCategoryDescription)
 		{
+			Console.WriteLine("Categories:");
 			foreach (var item in listOfCategory)
 			{
-				Console.WriteLine($"Category #{item.CategoryId}\nName: {item.Name}\nDescription: {item.Description}\n");
+				Console.WriteLine($"{item.Name}\nDescription: {item.Description}");
+			}
+			Console.WriteLine();
+		}
+		else if (isFullCategoryDescription)
+		{
+			Console.WriteLine("Categories:");
+			Console.WriteLine("0 - Show all products");
+			foreach (var item in listOfCategory)
+			{
+				Console.WriteLine($"{item.CategoryId} - {item.Name}");
 			}
 			Console.WriteLine();
 		}

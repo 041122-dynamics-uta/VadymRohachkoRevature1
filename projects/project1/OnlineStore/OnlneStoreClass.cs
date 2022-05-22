@@ -113,8 +113,15 @@ do
 			string storeLocationInput = "";
 			do
 			{
-				Console.WriteLine("Press q to return to previous menu.\n");
+				Console.WriteLine("Press q to return to previous menu.");
+				Console.WriteLine("Choose a store from the list above:");
 				storeLocationInput = Console.ReadLine();
+				//if "q" move to the previous menu
+				//if a number from the list, show the content of the store
+				if (storeLocationInput != "q")
+				{
+					UIManager.displayCategory(BLLManager.ProcessCategoryRequest(DALManager), true);
+				}
 			} while (storeLocationInput != "q");
 			break;
 		case "4":
