@@ -257,20 +257,26 @@ public class UIClass
 		}
 	}
 
-	public void displayCart(List<CartModelClass> listOfCart)
+	public List<int> displayCart(List<CartModelClass> listOfCart)
 	{
+		List<int> productIds = new List<int>();
+
 		if (listOfCart.Count == 0)
 		{
 			Console.WriteLine("No Shopping Cart for this customer :(");
 		}
 		else
 		{
+			double grandTotal = 0;
 			foreach (var item in listOfCart)
 			{
-				Console.WriteLine($"Order #{item.CartId}\n");
+				productIds.Add(item.ProductId);
+				grandTotal = grandTotal + item.Total;
+				Console.WriteLine($"ProductId: {item.ProductId}   Quantity: {item.Quantity}   PricePerItem: {item.CurrentPrice}   Price: {item.Total}   Title: {item.ProductName}   Author: {item.ProductAuthor}");
 			}
-			Console.WriteLine();
+			Console.WriteLine($"___________________________________________________TotalPrice: {grandTotal}\n");
 		}
+		return productIds;
 	}
 
 	public void HintToMoveToPrevMenu()

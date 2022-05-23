@@ -91,13 +91,75 @@ do
 	switch (menuChoice)
 	{
 		case "1":
-			UIManager.displayCart(BLLManager.ProcessCartRequest(DALManager));
-			string cartLeaveInput = "";
+			List<int> productIds = UIManager.displayCart(BLLManager.ProcessCartRequest(DALManager));
+			string cartInput = "";
 			do
 			{
-				Console.WriteLine("Press q to return to previous menu.\n");
-				cartLeaveInput = Console.ReadLine();
-			} while (cartLeaveInput != "q");
+				if (productIds.Count == 0)
+				{
+					Console.WriteLine("Press 'q' to return to previous menu.");
+					cartInput = Console.ReadLine();
+				}
+				else
+				{
+					Console.WriteLine("Press 'q' to return to previous menu.");
+					Console.WriteLine("Press 'd' to delete an item.");
+					Console.WriteLine("Press 'c' to checkout.");
+					cartInput = Console.ReadLine();
+					switch (cartInput)
+					{
+						case "d":
+							do
+							{
+								Console.WriteLine("Press 'q' to return to previous menu.");
+								Console.WriteLine("Enter Product ID to delete from your Shoppin Cart:");
+								UIManager.displayCart(BLLManager.ProcessCartRequest(DALManager));
+								string productToDelete = Console.ReadLine();
+								if (productToDelete == "q")
+								{
+									break;
+								}
+								if (productIds.Contains(Convert.ToInt32(productToDelete)))
+								{
+									Console.WriteLine("Deleting Item...");
+									bool isDeleted = BLLManager.DeleteProductFromCart(Convert.ToInt32(productToDelete), new DALClass());
+									if (isDeleted)
+									{
+										Console.WriteLine("Item removed from Shopping Cart");
+										productIds = UIManager.displayCart(BLLManager.ProcessCartRequest(DALManager));
+										break;
+									}
+									else
+									{
+										Console.WriteLine("Failed to remove the item from Shopping Cart");
+									}
+
+								}
+								else if (!productIds.Contains(Convert.ToInt32(productToDelete)))
+								{
+									Console.WriteLine("Incorrect Id");
+								}
+							} while (true);
+
+							break;
+						case "c":
+							string payUserInput = "";
+							do
+							{
+								Console.WriteLine("Press 'q' to return to previous menu.");
+								Console.WriteLine("Press 'p' to pay for the items in your Shoppin Cart");
+								payUserInput = Console.ReadLine();
+								if (payUserInput != "q" && payUserInput == "p")
+								{
+									Console.WriteLine("Transferring funds...");
+									payUserInput != "q";
+								}
+
+							} while (payUserInput != "q");
+							break;
+					}
+				}
+			} while (cartInput != "q");
 			break;
 		case "2":
 			UIManager.displayLog(BLLManager.ProcessLogRequest(currCust.customerId, DALManager));
@@ -165,11 +227,6 @@ do
 										}
 										else if (userProductInput != "q")
 										{
-											//put into the cart
-											//BLLManager.AddProductToCart(Convert.ToInt32(storeLocationInput), Convert.ToInt32(userProductInput), 1);
-											// Console.WriteLine($"Product with ID {userProductInput} was added to the cart!");
-											// Console.WriteLine($"The shopping cart contains {0} item/s.");
-											// Console.WriteLine($"Total price is ${0}.");
 											Console.WriteLine("Adding to Cart...");
 											Console.WriteLine($"Enter quantity of product ID{userProductInput}");
 											string itemQuantityInStringFormat = Console.ReadLine();
