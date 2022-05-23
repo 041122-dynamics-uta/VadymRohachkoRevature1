@@ -26,15 +26,16 @@ public class DALClass
 		this._product = new ProductMapperClass();
 	}
 
-	public List<CartModelClass> GetCart(Guid cartGuid)
+	public List<CartModelClass> GetCart(Guid cartId)
 	{
 		List<CartModelClass> carts = new List<CartModelClass>();
-		string myQuery1 = "SELECT * FROM Carts where cartId = @cartGuid;";
+
+		string myQuery1 = "SELECT DISTINCT Carts.cartid, Products.productId, Carts.quantity, Products.currentPrice, ProductDescs.name, ProductDescs.author, (Products.currentPrice * Carts.quantity) Total, Carts.StoreId  FROM Carts	JOIN Products	ON Products.productId = Carts.productId JOIN ProductDescs	ON ProductDescs.descId = Products.descId WHERE cartId = @cartId AND Products.productId IN (Select Carts.productId From Carts where cartId = @cartId)";
 
 		using (SqlConnection query1 = new SqlConnection(connectionString))
 		{
 			SqlCommand command = new SqlCommand(myQuery1, query1);
-			command.Parameters.AddWithValue("@cartGuid", cartGuid);
+			command.Parameters.AddWithValue("@cartId", cartId);
 			command.Connection.Open();
 			SqlDataReader results = command.ExecuteReader();
 
@@ -303,7 +304,7 @@ public class DALClass
 				query1.Close();
 			}
 
-			DecreaseProductAvailability(storeId, productId, quantity);
+			DecreaseOrIncreaseProductAvailability(storeId, productId, quantity);
 			return true;
 		}
 		catch (System.Exception)
@@ -329,7 +330,7 @@ public class DALClass
 				query1.Close();
 			}
 
-			DecreaseProductAvailability(storeId, productId, quantity);
+			DecreaseOrIncreaseProductAvailability(storeId, productId, quantity);
 			return true;
 		}
 		catch (System.Exception)
@@ -353,9 +354,19 @@ public class DALClass
 
 	}
 
-	public bool DecreaseProductAvailability(int storeId, int productId, int itemQuantity = 1)
+	public bool DecreaseOrIncreaseProductAvailability(int storeId, int productId, int itemQuantity = 1, bool isIncrease = false)
 	{
-		string myQuery1 = "UPDATE Stores SET availability = availability - @itemQuantity WHERE storeId = @storeId AND productId = @productId; ";
+		string myQuery1 = "";
+
+		if (isIncrease)
+		{
+			myQuery1 = "UPDATE Stores SET availability = availability + @itemQuantity WHERE storeId = @storeId AND productId = @productId; ";
+		}
+		else
+		{
+			myQuery1 = "UPDATE Stores SET availability = availability - @itemQuantity WHERE storeId = @storeId AND productId = @productId; ";
+		}
+
 		try
 		{
 			using (SqlConnection query1 = new SqlConnection(connectionString))
@@ -394,7 +405,86 @@ public class DALClass
 			{
 				isAvailable = true;
 			}
+			query1.Close();
 		}
 		return isAvailable;
 	}
+
+	public bool CheckProductInCart(Guid cartId, int productId, int quantity = 1)
+	{
+		bool isAvailable = false;
+		string myQuery1 = "SELECT * FROM Carts WHERE cartId = @cartId AND productId = @productId AND quantity = @quantity";
+
+		using (SqlConnection query1 = new SqlConnection(connectionString))
+		{
+			SqlCommand command = new SqlCommand(myQuery1, query1);
+			command.Parameters.AddWithValue("@cartId", cartId);
+			command.Parameters.AddWithValue("@productId", productId);
+			command.Parameters.AddWithValue("@quantity", quantity);
+			command.Connection.Open();
+			SqlDataReader results = command.ExecuteReader();
+
+			if (results.HasRows)
+			{
+				isAvailable = true;
+			}
+		}
+		return isAvailable;
+	}
+
+	public int CountProductInCart(Guid cartId, int productId)
+	{
+		int counter = 0;
+		string myQuery1 = "SELECT * FROM Carts WHERE cartId = @cartId AND productId = @productId AND quantity = 1";
+
+		using (SqlConnection query1 = new SqlConnection(connectionString))
+		{
+			SqlCommand command = new SqlCommand(myQuery1, query1);
+			command.Parameters.AddWithValue("@cartId", cartId);
+			command.Parameters.AddWithValue("@productId", productId);
+			command.Connection.Open();
+			SqlDataReader results = command.ExecuteReader();
+
+			if (results.HasRows)
+			{
+				counter = 1;
+			}
+			query1.Close();
+		}
+		return counter;
+	}
+
+
+	public bool DeleteProductFromCart(Guid cartId, int productId)
+	{
+		string myQuery1 = "";
+		if (CountProductInCart(cartId, productId) == 1)
+		{
+			myQuery1 = "DELETE FROM Carts WHERE cartId = @cartId and productId = @productId;";
+		}
+		else
+		{
+			myQuery1 = "UPDATE Carts SET quantity = quantity - 1 WHERE cartId = @cartId and productId = @productId;";
+		}
+
+		try
+		{
+			using (SqlConnection query1 = new SqlConnection(connectionString))
+			{
+				SqlCommand command = new SqlCommand(myQuery1, query1);
+				command.Parameters.AddWithValue("@cartId", cartId);
+				command.Parameters.AddWithValue("@productId", productId);
+				command.Connection.Open();
+				command.ExecuteNonQuery();
+				query1.Close();
+			}
+			return true;
+		}
+		catch (System.Exception)
+		{
+			return false;
+		}
+	}
+
+
 }

@@ -61,12 +61,21 @@ public class BLLClass
 	public bool AddProductToCart(int customerId, int storeId, int productId, int quantity, DALClass dalObj)
 	{
 		return dalObj.AddProductToCart(_userGuid, customerId, storeId, productId, quantity);
-
 	}
 
 	public bool CheckProductAvailable(int storeId, int productId, int quantity, DALClass dalObj)
 	{
 		return dalObj.CheckProduct(storeId, productId, quantity);
+	}
+
+	public bool DeleteProductFromCart(int productId, DALClass dalObj)
+	{
+		if (dalObj.CheckProductInCart(_userGuid, productId))
+		{
+			//dalObj.DecreaseORIncreaseProductAvailability(_userGuid, productId, 1, true);
+			return dalObj.DeleteProductFromCart(_userGuid, productId);
+		}
+		return false;
 	}
 
 }
