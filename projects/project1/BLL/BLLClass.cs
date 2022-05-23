@@ -6,6 +6,7 @@ using System.Collections.Generic;
 namespace BLL;
 public class BLLClass
 {
+	private Guid _userGuid = Guid.NewGuid();
 	public List<CustomerModelClass> ProcessLogin(Dictionary<string, string> user, DALClass dalObj)
 	{
 		CustomerModelClass customer = new CustomerModelClass();
@@ -47,9 +48,9 @@ public class BLLClass
 		return dalObj.GetOrder(id);
 	}
 
-	public List<CartModelClass> ProcessCartRequest(int id, DALClass dalObj)
+	public List<CartModelClass> ProcessCartRequest(DALClass dalObj)
 	{
-		return dalObj.GetCart(id);
+		return dalObj.GetCart(_userGuid);
 	}
 
 	public List<ProductModelClass> ProcessProductRequest(DALClass dalObj, int storeId, int categoryId)
@@ -59,7 +60,7 @@ public class BLLClass
 
 	public bool AddProductToCart(int customerId, int storeId, int productId, int quantity, DALClass dalObj)
 	{
-		return dalObj.AddProductToCart(customerId, storeId, productId, quantity);
+		return dalObj.AddProductToCart(_userGuid, customerId, storeId, productId, quantity);
 
 	}
 

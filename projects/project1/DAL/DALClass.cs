@@ -26,15 +26,15 @@ public class DALClass
 		this._product = new ProductMapperClass();
 	}
 
-	public List<CartModelClass> GetCart(int customerId)
+	public List<CartModelClass> GetCart(Guid cartGuid)
 	{
 		List<CartModelClass> carts = new List<CartModelClass>();
-		string myQuery1 = "SELECT * FROM Carts where customerId = @customerId;";
+		string myQuery1 = "SELECT * FROM Carts where cartId = @cartGuid;";
 
 		using (SqlConnection query1 = new SqlConnection(connectionString))
 		{
 			SqlCommand command = new SqlCommand(myQuery1, query1);
-			command.Parameters.AddWithValue("@customerId", customerId);
+			command.Parameters.AddWithValue("@cartGuid", cartGuid);
 			command.Connection.Open();
 			SqlDataReader results = command.ExecuteReader();
 
@@ -256,30 +256,101 @@ public class DALClass
 		return new List<ProductModelClass>();
 	}
 
-	public bool AddProductToCart(int customerId, int storeId, int productId, int itemQuantity = 1)
+	private bool CheckProductByGuid(Guid cartId, int productId)
 	{
-		string myQuery1 = "INSERT INTO Carts (productId, customerId, quantity, storeId) VALUES(@productId, @customerId, @itemQuantity, @storeId);";
+		bool isAvailable = false;
+		string productsByGuid = "SELECT * FROM Carts WHERE cartId = @cartId AND productId = @productId";
+
+		try
+		{
+			using (SqlConnection query1 = new SqlConnection(connectionString))
+			{
+				SqlCommand command = new SqlCommand(productsByGuid, query1);
+				command.Parameters.AddWithValue("@cartId", cartId);
+				command.Parameters.AddWithValue("@productId", productId);
+				command.Connection.Open();
+				SqlDataReader results = command.ExecuteReader();
+
+				if (results.HasRows)
+				{
+					isAvailable = true;
+				}
+				query1.Close();
+			}
+			return isAvailable;
+		}
+		catch (System.Exception)
+		{
+			return false;
+		}
+	}
+
+	private bool InsertIntoCart(Guid cartId, int productId, int customerId, int quantity, int storeId)
+	{
+		string myQuery1 = "INSERT INTO Carts (cartId, productId, customerId, quantity, storeId) VALUES(@cartId, @productId, @customerId, @quantity, @storeId);";
 		try
 		{
 			using (SqlConnection query1 = new SqlConnection(connectionString))
 			{
 				SqlCommand command = new SqlCommand(myQuery1, query1);
+				command.Parameters.AddWithValue("@cartId", cartId);
 				command.Parameters.AddWithValue("@productId", productId);
 				command.Parameters.AddWithValue("@customerId", customerId);
-				command.Parameters.AddWithValue("@itemQuantity", itemQuantity);
+				command.Parameters.AddWithValue("@quantity", quantity);
 				command.Parameters.AddWithValue("@storeId", storeId);
 				command.Connection.Open();
 				command.ExecuteNonQuery();
 				query1.Close();
 			}
 
-			DecreaseProductAvailability(storeId, productId, itemQuantity);
+			DecreaseProductAvailability(storeId, productId, quantity);
 			return true;
 		}
 		catch (System.Exception)
 		{
 			return false;
 		}
+	}
+
+	private bool UpdateCart(Guid cartId, int productId, int quantity, int storeId)
+	{
+		string myQuery1 = "UPDATE Carts SET quantity = quantity + @quantity WHERE cartId = @cartId AND productId = @productId; ";
+
+		try
+		{
+			using (SqlConnection query1 = new SqlConnection(connectionString))
+			{
+				SqlCommand command = new SqlCommand(myQuery1, query1);
+				command.Parameters.AddWithValue("@cartId", cartId);
+				command.Parameters.AddWithValue("@productId", productId);
+				command.Parameters.AddWithValue("@quantity", quantity);
+				command.Connection.Open();
+				command.ExecuteNonQuery();
+				query1.Close();
+			}
+
+			DecreaseProductAvailability(storeId, productId, quantity);
+			return true;
+		}
+		catch (System.Exception)
+		{
+			return false;
+		}
+	}
+
+	public bool AddProductToCart(Guid cartId, int customerId, int storeId, int productId, int quantity = 1)
+	{
+		bool isInDb = CheckProductByGuid(cartId, productId);
+
+		if (isInDb)
+		{
+			return UpdateCart(cartId, productId, quantity, storeId);
+		}
+		else
+		{
+			return InsertIntoCart(cartId, productId, customerId, quantity, storeId);
+		}
+
 	}
 
 	public bool DecreaseProductAvailability(int storeId, int productId, int itemQuantity = 1)

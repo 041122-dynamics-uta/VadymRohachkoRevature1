@@ -12,7 +12,6 @@ CustomerModelClass currCust = new CustomerModelClass();
 bool flag = false;
 List<CustomerModelClass> custObjListLogin;
 List<CustomerModelClass> custObjListRegister;
-var userGuid = Guid.NewGuid().ToString();
 
 UIManager.GreetUser();
 
@@ -92,7 +91,7 @@ do
 	switch (menuChoice)
 	{
 		case "1":
-			UIManager.displayCart(BLLManager.ProcessCartRequest(currCust.customerId, DALManager));
+			UIManager.displayCart(BLLManager.ProcessCartRequest(DALManager));
 			string cartLeaveInput = "";
 			do
 			{
