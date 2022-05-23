@@ -78,4 +78,17 @@ public class BLLClass
 		return false;
 	}
 
+	public bool SaveLogToDisk(int userId, DALClass dalObj)
+	{
+		bool isSaved = false;
+		List<LogModelClass> logs = dalObj.GetLog(userId);
+
+		foreach (var item in logs)
+		{
+			//Console.WriteLine(item.DateTime + " " + item.ActionName);
+		}
+
+		return isSaved;
+	}
+
 }

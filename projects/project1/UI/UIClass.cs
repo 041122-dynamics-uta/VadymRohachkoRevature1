@@ -204,7 +204,7 @@ public class UIClass
 	{
 		string userInput = "";
 
-		Console.WriteLine("Main menu:\n1 - Cart\n2 - Log\n3 - Stores\n4 - Orders\n5 - Categories\nq - Leave the store\n");
+		Console.WriteLine("Main menu:\n1 - Cart\n2 - Log\n3 - Stores\n4 - Orders\n5 - Categories\n6 - Print log\nq - Leave the store\n");
 		userInput = Console.ReadLine();
 
 		switch (userInput)

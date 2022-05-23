@@ -144,18 +144,18 @@ do
 							break;
 						case "c":
 							string payUserInput = "";
-							do
-							{
-								Console.WriteLine("Press 'q' to return to previous menu.");
-								Console.WriteLine("Press 'p' to pay for the items in your Shoppin Cart");
-								payUserInput = Console.ReadLine();
-								if (payUserInput != "q" && payUserInput == "p")
-								{
-									Console.WriteLine("Transferring funds...");
-									payUserInput != "q";
-								}
+							// do
+							// {
+							// 	Console.WriteLine("Press 'q' to return to previous menu.");
+							// 	Console.WriteLine("Press 'p' to pay for the items in your Shoppin Cart");
+							// 	payUserInput = Console.ReadLine();
+							// 	if (payUserInput != "q" && payUserInput == "p")
+							// 	{
+							// 		Console.WriteLine("Transferring funds...");
+							// 		payUserInput != "q";
+							// 	}
 
-							} while (payUserInput != "q");
+							// } while (payUserInput != "q");
 							break;
 					}
 				}
@@ -303,6 +303,17 @@ do
 				Console.WriteLine("Press q to return to previous menu.\n");
 				categoryInput = Console.ReadLine();
 			} while (categoryInput != "q");
+			break;
+		case "6":
+			Console.WriteLine("Saving Log to the disk...");
+			if (BLLManager.SaveLogToDisk(currCust.customerId, new DALClass()))
+			{
+				Console.WriteLine("Saved to disk!");
+			}
+			else
+			{
+				Console.WriteLine("Failed to saved to disk!");
+			}
 			break;
 		case "q":
 			quit = true;
