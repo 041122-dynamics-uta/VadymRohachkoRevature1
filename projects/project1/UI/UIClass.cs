@@ -313,7 +313,7 @@ public class UIClass
 			foreach (var item in listOfProducts)
 			{
 				products.Add(item.ProductId);
-				Console.WriteLine($"ID: {item.ProductId} Quantity: {item.Quantity} Title: {item.ProductName} Price: {item.CurrentPrice} Author: {item.ProductAuthor} Company: {item.ProductCompany}");
+				Console.WriteLine($"ID: {item.ProductId} Title: {item.ProductName} Price: {item.CurrentPrice} Availability: {item.Availability} Author: {item.ProductAuthor} Company: {item.ProductCompany}");
 			}
 		}
 		return products;

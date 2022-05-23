@@ -255,4 +255,75 @@ public class DALClass
 		}
 		return new List<ProductModelClass>();
 	}
+
+	public bool AddProductToCart(int customerId, int storeId, int productId, int itemQuantity = 1)
+	{
+		string myQuery1 = "INSERT INTO Carts (productId, customerId, quantity, storeId) VALUES(@productId, @customerId, @itemQuantity, @storeId);";
+		try
+		{
+			using (SqlConnection query1 = new SqlConnection(connectionString))
+			{
+				SqlCommand command = new SqlCommand(myQuery1, query1);
+				command.Parameters.AddWithValue("@productId", productId);
+				command.Parameters.AddWithValue("@customerId", customerId);
+				command.Parameters.AddWithValue("@itemQuantity", itemQuantity);
+				command.Parameters.AddWithValue("@storeId", storeId);
+				command.Connection.Open();
+				command.ExecuteNonQuery();
+				query1.Close();
+			}
+
+			DecreaseProductAvailability(storeId, productId, itemQuantity);
+			return true;
+		}
+		catch (System.Exception)
+		{
+			return false;
+		}
+	}
+
+	public bool DecreaseProductAvailability(int storeId, int productId, int itemQuantity = 1)
+	{
+		string myQuery1 = "UPDATE Stores SET availability = availability - @itemQuantity WHERE storeId = @storeId AND productId = @productId; ";
+		try
+		{
+			using (SqlConnection query1 = new SqlConnection(connectionString))
+			{
+				SqlCommand command = new SqlCommand(myQuery1, query1);
+				command.Parameters.AddWithValue("@storeId", storeId);
+				command.Parameters.AddWithValue("@productId", productId);
+				command.Parameters.AddWithValue("@itemQuantity", itemQuantity);
+				command.Connection.Open();
+				command.ExecuteNonQuery();
+				query1.Close();
+			}
+			return true;
+		}
+		catch (System.Exception)
+		{
+			return false;
+		}
+	}
+
+	public bool CheckProduct(int storeId, int productId, int itemQuantity = 1)
+	{
+		bool isAvailable = false;
+		string myQuery1 = "SELECT * FROM Products JOIN Stores ON Stores.productId = Products.productId WHERE Stores.storeId = @storeId AND Products.productId = @productId AND Stores.availability >= @itemQuantity";
+
+		using (SqlConnection query1 = new SqlConnection(connectionString))
+		{
+			SqlCommand command = new SqlCommand(myQuery1, query1);
+			command.Parameters.AddWithValue("@storeId", storeId);
+			command.Parameters.AddWithValue("@productId", productId);
+			command.Parameters.AddWithValue("@itemQuantity", itemQuantity);
+			command.Connection.Open();
+			SqlDataReader results = command.ExecuteReader();
+
+			if (results.HasRows)
+			{
+				isAvailable = true;
+			}
+		}
+		return isAvailable;
+	}
 }

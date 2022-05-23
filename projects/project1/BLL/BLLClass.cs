@@ -57,4 +57,15 @@ public class BLLClass
 		return dalObj.GetProduct(storeId, categoryId);
 	}
 
+	public bool AddProductToCart(int customerId, int storeId, int productId, int quantity, DALClass dalObj)
+	{
+		return dalObj.AddProductToCart(customerId, storeId, productId, quantity);
+
+	}
+
+	public bool CheckProductAvailable(int storeId, int productId, int quantity, DALClass dalObj)
+	{
+		return dalObj.CheckProduct(storeId, productId, quantity);
+	}
+
 }
