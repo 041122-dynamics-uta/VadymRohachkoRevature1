@@ -12,6 +12,7 @@ CustomerModelClass currCust = new CustomerModelClass();
 bool flag = false;
 List<CustomerModelClass> custObjListLogin;
 List<CustomerModelClass> custObjListRegister;
+var userGuid = Guid.NewGuid().ToString();
 
 UIManager.GreetUser();
 
@@ -166,9 +167,49 @@ do
 										else if (userProductInput != "q")
 										{
 											//put into the cart
-											Console.WriteLine($"Product with ID {userProductInput} was added to the cart!");
-											Console.WriteLine($"The shopping cart contains {0} item/s.");
-											Console.WriteLine($"Total price is ${0}.");
+											//BLLManager.AddProductToCart(Convert.ToInt32(storeLocationInput), Convert.ToInt32(userProductInput), 1);
+											// Console.WriteLine($"Product with ID {userProductInput} was added to the cart!");
+											// Console.WriteLine($"The shopping cart contains {0} item/s.");
+											// Console.WriteLine($"Total price is ${0}.");
+											Console.WriteLine("Adding to Cart...");
+											Console.WriteLine($"Enter quantity of product ID{userProductInput}");
+											string itemQuantityInStringFormat = Console.ReadLine();
+											int itemQuantity = Convert.ToInt32(itemQuantityInStringFormat);
+											if (itemQuantity < 1)
+											{
+												Console.WriteLine("You should pick up more than 0.");
+											}
+											else
+											{
+												try
+												{
+													//add to cart with checking availability (not real quantity in DB)
+													//if not available return warning currCust.customerId
+													bool isProductAvailable = BLLManager.CheckProductAvailable(Convert.ToInt32(storeLocationInput), Convert.ToInt32(userProductInput), itemQuantity, new DALClass());
+													if (isProductAvailable)
+													{
+														Console.WriteLine($"Product is avalable");
+														bool isAdded = BLLManager.AddProductToCart(currCust.customerId, Convert.ToInt32(storeLocationInput), Convert.ToInt32(userProductInput), itemQuantity, new DALClass());
+														if (isAdded)
+														{
+															Console.WriteLine("Added to your cart!");
+														}
+														else
+														{
+															Console.WriteLine("Failed to add item/s :(");
+														}
+													}
+													else
+													{
+														Console.WriteLine($"The quantity of product is NOT avalable :(\nTry to choose less quantity...");
+													}
+
+												}
+												catch (System.Exception)
+												{
+													Console.WriteLine("Wrong quantity/format :(\nTry again...");
+												}
+											}
 										}
 									}
 									catch (System.Exception)
