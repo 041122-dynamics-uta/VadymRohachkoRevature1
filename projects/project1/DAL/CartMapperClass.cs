@@ -9,7 +9,7 @@ namespace DAL
 		{
 			CartModelClass cart = new CartModelClass
 			{
-				CartId = (int)reader[0],
+				CartId = (Guid)reader[0],
 				CustomerId = (int)reader[2]
 			};
 			return cart;
