@@ -80,15 +80,30 @@ public class BLLClass
 
 	public bool SaveLogToDisk(int userId, DALClass dalObj)
 	{
-		bool isSaved = false;
-		List<LogModelClass> logs = dalObj.GetLog(userId);
-
-		foreach (var item in logs)
+		try
 		{
-			//Console.WriteLine(item.DateTime + " " + item.ActionName);
+			List<string> lines = new List<string>();
+			bool isSaved = false;
+			List<LogModelClass> logs = dalObj.GetLog(userId);
+
+			foreach (var item in logs)
+			{
+				lines.Add($"{item.DateTime}  {item.ActionName}");
+			}
+			string docPath =
+				Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+			using (StreamWriter outputFile = new StreamWriter(Path.Combine(docPath, "online_store.txt")))
+			{
+				foreach (string line in lines)
+					outputFile.WriteLine(line);
+			}
+			return true;
+		}
+		catch (System.Exception)
+		{
+			return false;
 		}
 
-		return isSaved;
 	}
 
 }
