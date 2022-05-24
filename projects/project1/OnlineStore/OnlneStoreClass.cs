@@ -13,190 +13,190 @@ bool flag = false;
 List<CustomerModelClass> custObjListLogin;
 List<CustomerModelClass> custObjListRegister;
 
-bool _level10 = true;
-bool _level20 = false;
+// bool _level10 = true;
+// bool _level20 = false;
 
-UIManager.GreetUser();
+// UIManager.GreetUser();
 
-while (_level10)
-{
-	Console.WriteLine("Entrance Menu");
-	Console.WriteLine("1 Login");
-	Console.WriteLine("2 Register");
-	Console.WriteLine("q Quit the app\n");
+// while (_level10)
+// {
+// 	Console.WriteLine("Entrance Menu");
+// 	Console.WriteLine("1 Login");
+// 	Console.WriteLine("2 Register");
+// 	Console.WriteLine("q Quit the app\n");
 
-	bool _level11 = true;
-	bool _level12 = false;
-	bool _level13 = false;
+// 	bool _level11 = true;
+// 	bool _level12 = false;
+// 	bool _level13 = false;
 
-	string userInputEntanceMenu = Console.ReadLine();
-	switch (userInputEntanceMenu)
-	{
-		case "q":
-			System.Console.WriteLine("See you later!");
-			_level10 = false;
-			//Environment.Exit(0);
-			break;
-		case "1":
-			System.Console.WriteLine("Login processing...");
-			Dictionary<string, string> loginData = new Dictionary<string, string>();
-			while (_level11)
-			{
-				System.Console.WriteLine("Press 'q' to quit Login");
-				System.Console.Write("Enter your login (email):");
-				string userInputEmail = Console.ReadLine();
-				System.Console.WriteLine();
-				switch (userInputEmail)
-				{
-					case "q":
-						_level11 = false;
-						break;
-					default:
-						if (!UIManager.CheckEmail(userInputEmail))
-						{
-							System.Console.WriteLine("Error: Incorrect email format!\n");
-						}
-						else
-						{
-							loginData.Add("email", userInputEmail);
-							_level11 = false;
-							_level12 = true;
-						}
-						break;
-				}
-			}//END _level11
-			while (_level12)
-			{
-				System.Console.WriteLine("Press 'q' to quit Login");
-				System.Console.Write("Enter your Password:");
-				string userInputPassword = Console.ReadLine();
-				System.Console.WriteLine();
-				switch (userInputPassword)
-				{
-					case "q":
-						_level12 = false;
-						break;
-					default:
-						if (!UIManager.checkPassword(userInputPassword))
-						{
-							System.Console.WriteLine("Error: Incorrect password format!\n");
-						}
-						else
-						{
-							loginData.Add("password", userInputPassword);
-							_level12 = false;
-							_level13 = true;
-						}
-						break;
-				}
-			}//END _level12
+// 	string userInputEntanceMenu = Console.ReadLine();
+// 	switch (userInputEntanceMenu)
+// 	{
+// 		case "q":
+// 			System.Console.WriteLine("See you later!");
+// 			_level10 = false;
+// 			//Environment.Exit(0);
+// 			break;
+// 		case "1":
+// 			System.Console.WriteLine("Login processing...");
+// 			Dictionary<string, string> loginData = new Dictionary<string, string>();
+// 			while (_level11)
+// 			{
+// 				System.Console.WriteLine("Press 'q' to quit Login");
+// 				System.Console.Write("Enter your login (email):");
+// 				string userInputEmail = Console.ReadLine();
+// 				System.Console.WriteLine();
+// 				switch (userInputEmail)
+// 				{
+// 					case "q":
+// 						_level11 = false;
+// 						break;
+// 					default:
+// 						if (!UIManager.CheckEmail(userInputEmail))
+// 						{
+// 							System.Console.WriteLine("Error: Incorrect email format!\n");
+// 						}
+// 						else
+// 						{
+// 							loginData.Add("email", userInputEmail);
+// 							_level11 = false;
+// 							_level12 = true;
+// 						}
+// 						break;
+// 				}
+// 			}//END _level11
+// 			while (_level12)
+// 			{
+// 				System.Console.WriteLine("Press 'q' to quit Login");
+// 				System.Console.Write("Enter your Password:");
+// 				string userInputPassword = Console.ReadLine();
+// 				System.Console.WriteLine();
+// 				switch (userInputPassword)
+// 				{
+// 					case "q":
+// 						_level12 = false;
+// 						break;
+// 					default:
+// 						if (!UIManager.checkPassword(userInputPassword))
+// 						{
+// 							System.Console.WriteLine("Error: Incorrect password format!\n");
+// 						}
+// 						else
+// 						{
+// 							loginData.Add("password", userInputPassword);
+// 							_level12 = false;
+// 							_level13 = true;
+// 						}
+// 						break;
+// 				}
+// 			}//END _level12
 
-			while (_level13)
-			{
-				custObjListLogin = BLLManager.ProcessLogin(loginData, DALManager);
-				if (custObjListLogin.Count != 1)
-				{
-					System.Console.WriteLine("Error: Email and\\or Password is incorrect!\n");
-					_level13 = false;
-				}
-				else
-				{
-					System.Console.WriteLine("Welcome back!\n");
-					_level13 = false;
-					_level10 = false;
-					_level20 = true;
-				}
-			}//END _level13
-			break;
-		case "2":
-			System.Console.WriteLine("Go to Register\n");
-			_level20 = true;
-			break;
-		default:
-			System.Console.WriteLine("Error: Wrong input!\n");
-			break;
-	}
+// 			while (_level13)
+// 			{
+// 				custObjListLogin = BLLManager.ProcessLogin(loginData, DALManager);
+// 				if (custObjListLogin.Count != 1)
+// 				{
+// 					System.Console.WriteLine("Error: Email and\\or Password is incorrect!\n");
+// 					_level13 = false;
+// 				}
+// 				else
+// 				{
+// 					System.Console.WriteLine("Welcome back!\n");
+// 					_level13 = false;
+// 					_level10 = false;
+// 					_level20 = true;
+// 				}
+// 			}//END _level13
+// 			break;
+// 		case "2":
+// 			System.Console.WriteLine("Go to Register\n");
+// 			_level20 = true;
+// 			break;
+// 		default:
+// 			System.Console.WriteLine("Error: Wrong input!\n");
+// 			break;
+// 	}
 
-	while (_level20)
-	{
-		System.Console.WriteLine("Main Menu:");
-		System.Console.WriteLine("'1' Go to Store");
-		System.Console.WriteLine("'2' Go to Cart");
-		System.Console.WriteLine("'3' See Locations");
-		System.Console.WriteLine("'4' See Categories");
-		System.Console.WriteLine("'5' See Log");
-		System.Console.WriteLine("'6' Save Log to Disk");
-		System.Console.WriteLine("'q' Logoff\n"); //the global vars should be reset at this point
+// 	while (_level20)
+// 	{
+// 		System.Console.WriteLine("Main Menu:");
+// 		System.Console.WriteLine("'1' Go to Store");
+// 		System.Console.WriteLine("'2' Go to Cart");
+// 		System.Console.WriteLine("'3' See Locations");
+// 		System.Console.WriteLine("'4' See Categories");
+// 		System.Console.WriteLine("'5' See Log");
+// 		System.Console.WriteLine("'6' Save Log to Disk");
+// 		System.Console.WriteLine("'q' Logoff\n"); //the global vars should be reset at this point
 
-		string userInputMainMenu = Console.ReadLine();
-		switch (userInputMainMenu)
-		{
-			case "q":
-				_level20 = false;
-				_level10 = true;
-				currCust = null;
-				custObjListLogin = null;
-				custObjListRegister = null;
-				System.Console.WriteLine("You logged off.\n");
-				break;
-			case "1":
-				System.Console.WriteLine("Store");
-				break;
-			case "2":
-				System.Console.WriteLine("Cart");
-				break;
-			case "3":
-				while (true)
-				{
-					UIManager.displayStoreLocation(BLLManager.ProcessStoreLocationRequest(DALManager));
-					System.Console.WriteLine("Press 'q' to return to the previous menu.\n");
-					if (Console.ReadLine() == "q")
-					{
-						break;
-					}
-				}
-				break;
-			case "4":
-				while (true)
-				{
-					UIManager.displayCategory(BLLManager.ProcessCategoryRequest(DALManager));
-					System.Console.WriteLine("Press 'q' to return to the previous menu.\n");
-					if (Console.ReadLine() == "q")
-					{
-						break;
-					}
-				}
-				break;
-			case "5":
-				while (true)
-				{
-					UIManager.displayLog(BLLManager.ProcessLogRequest(currCust.customerId, DALManager));
-					System.Console.WriteLine("Press 'q' to return to the previous menu.\n");
-					if (Console.ReadLine() == "q")
-					{
-						break;
-					}
-				}
-				break;
-			case "6":
-				if (BLLManager.SaveLogToDisk(currCust.customerId, new DALClass()))
-				{
-					Console.WriteLine("You log successfully saved to disk  ...MyDocuments/online_store.txt\n");
-				}
-				else
-				{
-					Console.WriteLine("Failed to saved to disk!\n");
-				}
-				break;
-			default:
-				System.Console.WriteLine("Error: Wrong input!");
-				break;
-		}
+// 		string userInputMainMenu = Console.ReadLine();
+// 		switch (userInputMainMenu)
+// 		{
+// 			case "q":
+// 				_level20 = false;
+// 				_level10 = true;
+// 				currCust = null;
+// 				custObjListLogin = null;
+// 				custObjListRegister = null;
+// 				System.Console.WriteLine("You logged off.\n");
+// 				break;
+// 			case "1":
+// 				System.Console.WriteLine("Store");
+// 				break;
+// 			case "2":
+// 				System.Console.WriteLine("Cart");
+// 				break;
+// 			case "3":
+// 				while (true)
+// 				{
+// 					UIManager.displayStoreLocation(BLLManager.ProcessStoreLocationRequest(DALManager));
+// 					System.Console.WriteLine("Press 'q' to return to the previous menu.\n");
+// 					if (Console.ReadLine() == "q")
+// 					{
+// 						break;
+// 					}
+// 				}
+// 				break;
+// 			case "4":
+// 				while (true)
+// 				{
+// 					UIManager.displayCategory(BLLManager.ProcessCategoryRequest(DALManager));
+// 					System.Console.WriteLine("Press 'q' to return to the previous menu.\n");
+// 					if (Console.ReadLine() == "q")
+// 					{
+// 						break;
+// 					}
+// 				}
+// 				break;
+// 			case "5":
+// 				while (true)
+// 				{
+// 					UIManager.displayLog(BLLManager.ProcessLogRequest(currCust.customerId, DALManager));
+// 					System.Console.WriteLine("Press 'q' to return to the previous menu.\n");
+// 					if (Console.ReadLine() == "q")
+// 					{
+// 						break;
+// 					}
+// 				}
+// 				break;
+// 			case "6":
+// 				if (BLLManager.SaveLogToDisk(currCust.customerId, new DALClass()))
+// 				{
+// 					Console.WriteLine("You log successfully saved to disk  ...MyDocuments/online_store.txt\n");
+// 				}
+// 				else
+// 				{
+// 					Console.WriteLine("Failed to saved to disk!\n");
+// 				}
+// 				break;
+// 			default:
+// 				System.Console.WriteLine("Error: Wrong input!");
+// 				break;
+// 		}
 
-	}
-}
+// 	}
+// }
 
-Environment.Exit(0);
+// Environment.Exit(0);
 
 do
 {
