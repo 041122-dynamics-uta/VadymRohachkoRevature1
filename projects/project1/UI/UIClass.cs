@@ -7,6 +7,20 @@ namespace UI;
 public class UIClass
 {
 
+	public void UILogin()
+	{
+
+	}
+
+	public bool CheckName(string name)
+	{
+		if (name.Length < 1 || name.Length > 10)
+		{
+			return false;
+		}
+		return true;
+	}
+
 	public void GreetUser()
 	{
 		ClearConsole();
@@ -171,6 +185,17 @@ public class UIClass
 		return false;
 	}
 
+	public bool CheckEmail(string email)
+	{
+		Regex regex = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
+		Match match = regex.Match(email);
+		if (match.Success)
+		{
+			return true;
+		}
+		return false;
+	}
+
 	public bool checkPassword(string pass)
 	{
 		if (pass.Length < 3 || pass.Length > 20)
@@ -214,6 +239,7 @@ public class UIClass
 			case "3":
 			case "4":
 			case "5":
+			case "6":
 			case "q":
 				return userInput;
 			default:
@@ -232,6 +258,7 @@ public class UIClass
 		}
 		else
 		{
+			System.Console.WriteLine("Your account logs:");
 			foreach (var item in listOfLogs)
 			{
 				Console.WriteLine(item.DateTime + " " + item.ActionName);
@@ -289,10 +316,11 @@ public class UIClass
 		Dictionary<string, string> stores = new Dictionary<string, string>();
 		if (listOfLocations.Count == 0)
 		{
-			Console.WriteLine("No locations in our store :(");
+			Console.WriteLine("No locations in our store :(\n");
 		}
 		else
 		{
+			System.Console.WriteLine("Our Stores are located in:");
 			for (int item = 0; item < listOfLocations.Count; ++item)
 			{
 				stores.Add(Convert.ToString(listOfLocations[item].StoreId), listOfLocations[item].Location);
@@ -335,21 +363,21 @@ public class UIClass
 		}
 		else if (!isFullCategoryDescription)
 		{
-			Console.WriteLine("Categories:");
-			foreach (var item in listOfCategory)
+			Console.WriteLine("Categories in our store:");
+			for (var item = 0; item < listOfCategory.Count; ++item)
 			{
-				categories.Add(item.CategoryId);
-				Console.WriteLine($"{item.Name}\nDescription: {item.Description}");
+				categories.Add(listOfCategory[item].CategoryId);
+				Console.WriteLine($"{item + 1} {listOfCategory[item].Name}\n     Description: {listOfCategory[item].Description}");
 			}
 			Console.WriteLine();
 		}
 		else if (isFullCategoryDescription)
 		{
-			Console.WriteLine("Categories:");
-			foreach (var item in listOfCategory)
+			Console.WriteLine("Categories in our store:");
+			for (var item = 0; item < listOfCategory.Count; ++item)
 			{
-				categories.Add(item.CategoryId);
-				Console.WriteLine($"{item.CategoryId} - {item.Name}");
+				categories.Add(listOfCategory[item].CategoryId);
+				Console.WriteLine($"{item} {listOfCategory[item].CategoryId} - {listOfCategory[item].Name}");
 			}
 			Console.WriteLine();
 		}
