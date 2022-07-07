@@ -5,18 +5,18 @@ using System.Runtime.ExceptionServices;
 public class cardHolder
 {
 	private String _cardNum;
-	int pin;
-	String firstName;
-	String lastName;
-	double balance;
+	private int _pin;
+	private String _firstName;
+	private String _lastName;
+	private double _balance;
 
 	public cardHolder(string cardNum, int pin, string firstName, string lastName, double balance)
 	{
 		this._cardNum = cardNum;
-		this.pin = pin;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.balance = balance;
+		this._pin = pin;
+		this._firstName = firstName;
+		this._lastName = lastName;
+		this._balance = balance;
 	}
 
 	public String getNum()
@@ -26,22 +26,22 @@ public class cardHolder
 
 	public int getPin()
 	{
-		return pin;
+		return _pin;
 	}
 
 	public String getFirstName()
 	{
-		return firstName;
+		return _firstName;
 	}
 
 	public String getLastName()
 	{
-		return lastName;
+		return _lastName;
 	}
 
 	public double getBalance()
 	{
-		return balance;
+		return _balance;
 	}
 
 	public void setCardNum(String newCardNum)
@@ -51,22 +51,22 @@ public class cardHolder
 
 	public void setPin(int newPin)
 	{
-		pin = newPin;
+		_pin = newPin;
 	}
 
 	public void setFirstName(String newFirstName)
 	{
-		firstName = newFirstName;
+		_firstName = newFirstName;
 	}
 
 	public void setName(String newFirstName)
 	{
-		firstName = newFirstName;
+		_firstName = newFirstName;
 	}
 
 	public void setBalance(double newBalance)
 	{
-		balance = newBalance;
+		_balance = newBalance;
 	}
 
 	public static void Main(String[] args)
