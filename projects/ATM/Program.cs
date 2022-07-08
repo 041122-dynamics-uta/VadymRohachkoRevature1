@@ -142,7 +142,7 @@ public class cardHolder
 			}
 			catch (System.Exception)
 			{
-				System.Console.WriteLine("Card not recognized. Please try again.");
+				System.Console.WriteLine("Card not recognized. Please try again..");
 			}
 
 		}
@@ -163,7 +163,7 @@ public class cardHolder
 			}
 			catch (System.Exception)
 			{
-				System.Console.WriteLine("Pin not recognized. Please try again.");
+				System.Console.WriteLine("Pin not recognized. Please try again..");
 			}
 		}
 
@@ -178,7 +178,7 @@ public class cardHolder
 			}
 			catch
 			{
-
+				System.Console.WriteLine("Wrong input!");
 			}
 			if (option == 1)
 			{
