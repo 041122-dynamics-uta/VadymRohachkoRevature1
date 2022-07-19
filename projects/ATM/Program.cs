@@ -4,6 +4,7 @@ using System.Runtime.ConstrainedExecution;
 using System.Runtime.ExceptionServices;
 public class cardHolder
 {
+	//private vars
 	private String _cardNum;
 	private int _pin;
 	private String _firstName;
@@ -19,6 +20,7 @@ public class cardHolder
 		this._balance = balance;
 	}
 
+	//getters
 	public String getNum()
 	{
 		return _cardNum;
@@ -44,6 +46,7 @@ public class cardHolder
 		return _balance;
 	}
 
+	//setters
 	public void setCardNum(String newCardNum)
 	{
 		_cardNum = newCardNum;
@@ -69,6 +72,7 @@ public class cardHolder
 		_balance = newBalance;
 	}
 
+	//main menu
 	void printOptions()
 	{
 		Console.WriteLine("Please choose from one of the following options...");
@@ -78,6 +82,7 @@ public class cardHolder
 		System.Console.WriteLine("4. Exit");
 	}
 
+	//add money to the account
 	public void deposit(cardHolder currentUser)
 	{
 		System.Console.WriteLine("How much $$ would you like to deposit?");
@@ -86,6 +91,7 @@ public class cardHolder
 		Console.WriteLine("Thank you for your $$. Your new balance is: " + currentUser.getBalance());
 	}
 
+	//get money from the accout
 	public void withdraw(cardHolder currentUser)
 	{
 		System.Console.WriteLine("How much $$ would you like to withdraw: ");
@@ -102,6 +108,7 @@ public class cardHolder
 		}
 	}
 
+	//get and display current ballance
 	public void balance(cardHolder currentUser)
 	{
 		System.Console.WriteLine("Current balance: " + currentUser.getBalance());
@@ -109,6 +116,7 @@ public class cardHolder
 
 	public static void Main(String[] args)
 	{
+		//mock DB
 		List<cardHolder> cardHolders = new List<cardHolder>();
 		cardHolders.Add(new cardHolder("1111222233334444", 1111, "John", "Brown", 150.22));
 		cardHolders.Add(new cardHolder("2222111133334444", 2222, "Amy", "Whitehouse", 180.02));
@@ -124,6 +132,7 @@ public class cardHolder
 		String debitCardNum = "";
 		cardHolder currentUser;
 
+		//get card's number from the user
 		while (true)
 		{
 			try
@@ -147,6 +156,7 @@ public class cardHolder
 
 		}
 
+		//get the pin from the user
 		System.Console.WriteLine("Please enter your pin: ");
 		int userPin = 0;
 
@@ -155,7 +165,10 @@ public class cardHolder
 			try
 			{
 				userPin = int.Parse(Console.ReadLine());
-				if (currentUser.getPin() == userPin) { break; }
+				if (currentUser.getPin() == userPin)
+				{
+					break;
+				}
 				else
 				{
 					System.Console.WriteLine("Pin not recognized. Please try again.");
@@ -167,6 +180,7 @@ public class cardHolder
 			}
 		}
 
+		//greet the user and display the main menu
 		System.Console.WriteLine("Welcome " + currentUser.getFirstName() + " :)");
 		int option = 0;
 		do
